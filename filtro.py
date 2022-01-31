@@ -1,65 +1,60 @@
+#!/usr/bin/env python3
 import requests
-from multiprocessing.pool import ThreadPool
-import gzip
 import pandas as pd
-# import os
- 
+import os
+import csv
+
 def download_url(url):
-  print("downloading: ",url)
+  print("Downloading:", url)
   file_name_start_pos = url.rfind("/") + 1
   file_name = url[file_name_start_pos:]
- 
+  if os.path.isfile(file_name):
+    print("Already downloaded: skipping")
+    return
+
   r = requests.get(url, stream=True)
-  if r.status_code == requests.codes.ok:
-    with open(file_name, 'wb') as f:
-      for data in r:
-        f.write(data)
+  r.raise_for_status()
+  with open(file_name, 'wb') as f:
+    for chunk in r.iter_content(chunk_size=4096):
+      f.write(chunk)
   return url
 
-urls = ["https://datasets.imdbws.com/name.basics.tsv.gz", 
+urls = ["https://datasets.imdbws.com/name.basics.tsv.gz",
         "https://datasets.imdbws.com/title.principals.tsv.gz",
         "https://datasets.imdbws.com/title.basics.tsv.gz"]
 
-# Run 3 multiple threads. Each call will take the next element in urls list
-results = ThreadPool(3).imap_unordered(download_url, urls)
-for r in results:
-    print(r)
+for url in urls:
+  download_url(url)
 
-def titlebasics(): 
-    df = pd.read_csv('title.basics.tsv.gz', sep='\t', usecols=['tconst', 'primaryTitle', 'isAdult'], compression='gzip')
-    df.query('isAdult != 1', inplace=True)
-    df.to_csv('FilmFiltrati.txt', sep=' ', columns=['tconst', 'primaryTitle'], header=False)
+os.makedirs("data", exist_ok=True)
 
-def namebasics():
-    df = pd.read_csv('name.basics.tsv.gz', sep='\t', usecols=['nconst', 'primaryName', 'primaryProfession'], compression='gzip')
-    df.query('primaryProfession == "actor" or primaryProfession == "actress"', inplace=True)
-    df.to_csv('Attori.txt', sep=' ', columns=['nconst', 'primaryName'], header=False)
+print("Filtering actors...")
+df_attori = pd.read_csv(
+  'name.basics.tsv.gz', sep='\t', compression='gzip',
+  usecols=['nconst', 'primaryName', 'primaryProfession'],
+  dtype={'primaryName': 'U', 'primaryProfession': 'U'},
+  converters={'nconst': lambda x: int(x.lstrip("nm0"))})
+df_attori.query('primaryProfession.str.contains("actor") or primaryProfession.str.contains("actress")', inplace=True)
+df_attori.to_csv('data/Attori.txt', sep='\t', quoting=csv.QUOTE_NONE, escapechar='\\', columns=['nconst', 'primaryName'], header=False, index=False)
+del df_attori  # Free memory
 
-def titleprincipals():
-    df = pd.read_csv('title.principals.tsv.gz', sep='\t', usecols=['nconst','category'], compression='gzip')
-    df.query('category == "actor" or category == "actress"', inplace=True)    
-    df.to_csv('') #DA FARE
+print("Filtering films...")
+df_film = pd.read_csv(
+  'title.basics.tsv.gz', sep='\t', compression='gzip',
+  usecols=['tconst', 'primaryTitle', 'isAdult', 'titleType'],
+  dtype={'primaryTitle': 'U', 'titleType': 'U'},
+  converters={'tconst': lambda x: int(x.lstrip("t0")), 'isAdult': lambda x: x != "0"})
+df_film.query('not isAdult and titleType in ["movie", "tvSeries", "tvMovie", "tvMiniSeries"]',
+              inplace=True)
+df_film.to_csv('data/FilmFiltrati.txt', sep='\t', quoting=csv.QUOTE_NONE, escapechar='\\', columns=['tconst', 'primaryTitle'], header=False, index=False)
+filtered_tconsts = df_film["tconst"].to_list()
+del df_film  # Free memory
 
-
-
-titlebasics()
-namebasics()
-# titleprincipals()
-
-
-
-# def cancella():
-#     os.system('rm *.gz')
-
-
-
-
-
-        
-
-
-
-
-
-
-
+print("Filtering relations...")
+df_relazioni = pd.read_csv(
+  'title.principals.tsv.gz', sep='\t', compression='gzip',
+  usecols=['tconst', 'nconst','category'],
+  dtype={'category': 'U'},
+  converters={'nconst': lambda x: int(x.lstrip("nm0")), 'tconst': lambda x: int(x.lstrip("t0"))})
+df_relazioni.query('(category == "actor" or category == "actress") and tconst in @filtered_tconsts', inplace=True)
+df_relazioni.to_csv('data/Relazioni.txt', sep='\t', quoting=csv.QUOTE_NONE, escapechar='\\', columns=['tconst', 'nconst'], header=False, index=False)
