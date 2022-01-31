@@ -35,7 +35,7 @@ void DataRead()
     ifstream movies("data/FilmFiltrati.txt"); // leggo il file
 
     string s,t; // creo delle stringhe per dopo, notazione triste? Si
-    const string space /* the final frontier */ = " "; // stringa spazio per dopo
+    const string space /* the final frontier */ = "\t"; // stringa spazio per dopo
 
     for (int i = 1; getline(actors,s); i++)
     {
@@ -75,7 +75,7 @@ void BuildGraph()
 {
     ifstream relations("data/Relazioni.txt");
     string s;
-    const string space = " ";
+    const string space = "\t";
 
     for (int i=1; getline(relations,s); i++){ // Scorro relations
         if (s.empty())
