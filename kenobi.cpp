@@ -1,4 +1,4 @@
-// g++ -Wall -pedantic -std=c++17 kenobi.cpp -o kenobi
+// g++ -Wall -pedantic -std=c++17 -Ofast kenobi.cpp -o kenobi
 #include <iostream>
 #include <iomanip>
 #include <vector>
