@@ -97,17 +97,40 @@ void BuildGraph()
     }
 }
 
-// Stampo il grafo (i primi max_n_film soltanto)
-void PrintGraph(size_t max_n_film = 100)
+// // OLD VERSION
+// void PrintGraph(size_t max_n_film = 100)
+// {
+//     const size_t n = min(max_n_film, F.size()); // Potrebbero esserci meno film di max_n_film
+//     size_t i = 0;
+//     for (const auto& [id_film, film] : F) { // Loop sulle coppie id:film della mappa
+//         cout << id_film << "(" << film.name << ")";
+//         if (!film.actor_indicies.empty()) {
+//             cout << ":";
+//             for (int id_attore : film.actor_indicies)
+//                 cout << " " << id_attore << "(" << A[id_attore].name << ")";
+//         }
+//         cout << endl;
+
+//         i++; // Tengo il conto di quanti ne ho stampati
+//         if (i >= n) // e smetto quando arrivo ad n
+//             break;
+//     }
+// }
+
+void PrintGraph(size_t max_n_actors = 10)
 {
-    const size_t n = min(max_n_film, F.size()); // Potrebbero esserci meno film di max_n_film
+    const size_t n = min(max_n_actors, A.size()); // Potrebbero esserci meno film di max_n_actors
     size_t i = 0;
-    for (const auto& [id_film, film] : F) { // Loop sulle coppie id:film della mappa
-        cout << id_film << "(" << film.name << ")";
-        if (!film.actor_indicies.empty()) {
-            cout << ":";
-            for (int id_attore : film.actor_indicies)
-                cout << " " << id_attore << "(" << A[id_attore].name << ")";
+    for (const auto& [id_attore, attore] : A) {
+        cout << id_attore << " (" << attore.name << ")";
+        if (!attore.film_indices.empty()) {
+            cout << ":\n";
+            for (int id_film : attore.film_indices) {
+                cout << "\t- " << id_film << " (" << F[id_film].name << ")\n";
+                for (int id_attore_adj : F[id_film].actor_indicies)
+                    if (id_attore_adj != id_attore)
+                        cout << "\t\t* " << id_attore_adj << " (" << A[id_attore_adj].name << ")\n";
+            }
         }
         cout << endl;
 
@@ -275,7 +298,7 @@ int main()
 
     // ------------------------------------------------------------- //
 
-    // // FUNZIONE CERCA FILMclos
+    // FUNZIONE CERCA FILMclos
 
     // cout << "Cerca film: ";
     // string titolo;
@@ -286,7 +309,7 @@ int main()
     //     cout << ":";
     //     for (int id_attore : F[id_film].actor_indicies)
     //         cout << " " << id_attore << "(" << A[id_attore].name << ")";
-    // }clos
+    // }
     // cout << endl;
 
     // // FUNZIONE CERCA ATTORE
@@ -299,11 +322,11 @@ int main()
     // if (!A[id_attore].film_indices.empty()) {
     //     cout << ":";
     //     for (int id_attore : A[id_attore].film_indices)
-    //         cout << " " << id_attore << "(" << A[id_attore].name << ")";
+    //         cout << " " << id_attore << "(" << F[id_film].name << ")"; // Non worka ancora
     // }
     // cout << endl;
 
-    // ------------------------------------------------------------- //
+   // ------------------------------------------------------------- //
 
     cout << "Grafo, grafo delle mie brame... chi è il più centrale del reame?" << endl;
     for (const auto& [actor_id, farness] : closeness(100)) {
