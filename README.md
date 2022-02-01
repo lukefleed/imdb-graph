@@ -149,3 +149,199 @@ df_film.query("tconst in @tconsts_with_relations", inplace=True)
 At the end, we can finally generate the file `Relazioni.txt` containing the columns `tconst` and `nconst`
 
 # Understanding the code
+
+Now that we have understood the python code, let's start with the core of the algorithm, written in C++
+
+![](https://i.redd.it/icysmnx0lpsy.jpg)
+
+## Data structures to work with
+
+In this case we are working with tow simple `struct` for the classes _Film_ and _Actor_
+
+```cpp
+struct Film {
+    string name;
+    vector<int> actor_indicies;
+};
+
+struct Actor {
+    string name;
+    vector<int> film_indices;
+};
+```
+
+Then we need two dictionaries build like this
+
+```cpp
+map<int, Actor> A; // Dictionary {actor_id (key): Actor (value)}
+map<int, Film> F; // Dictionary {film_id (key): Film (value)}
+```
+
+The comments explain everything needed
+
+## Data Read
+
+This section refers to the function `DataRead()`
+
+```cpp
+void DataRead()
+{
+    ifstream actors("data/Attori.txt");
+    ifstream movies("data/FilmFiltrati.txt");
+
+    string s,t;
+    const string space /* the final frontier */ = "\t";
+    for (int i = 1; getline(actors,s); i++)
+    {
+        if (s.empty())
+            continue;
+        try {
+            Actor TmpObj;
+            int id = stoi(s.substr(0, s.find(space)));
+            TmpObj.name = s.substr(s.find(space)+1);
+            A[id] = TmpObj; // Matlab/Python notation, works with C++17
+            if (id > MAX_ACTOR_ID)
+                MAX_ACTOR_ID = id;
+        } catch (...) {
+            cout << "Could not read the line " << i << " of Actors file" << endl;
+        }
+    }
+
+    for (int i = 1; getline(movies,t); i++)
+    {
+        if (t.empty())
+            continue;
+
+        try{
+            Film TmpObj;
+            int id = stoi(t.substr(0, t.find(space)));
+            TmpObj.name = t.substr(t.find(space)+1);
+            F[id] = TmpObj;
+        } catch (...) {
+            cout << "Could not read the line " << i << " of Film file" << endl;
+        }
+    }
+}
+```
+
+We are considering the files `Attori.txt` and `FilmFiltrati.txt`, we don't need the relations one for now. Once that we have read this two files, we loop on each one brutally filling the two dictionaries created before. If a line is empty, we skip it.
+
+## Building the Graph
+
+This section refers to the function `BuildGraph()`
+
+```cpp
+void BuildGraph()
+{
+    ifstream relations("data/Relazioni.txt");
+    string s;
+    const string space = "\t";
+
+    for (int i=1; getline(relations,s); i++){
+        if (s.empty())
+            continue;
+        try {
+            int id_film = stoi(s.substr(0, s.find(space)));
+            int id_attore = stoi(s.substr(s.find(space)+1));
+            if (A.count(id_attore) && F.count(id_film)) { // Exclude movies and actors filtered
+                A[id_attore].film_indices.push_back(id_film);
+                F[id_film].actor_indicies.push_back(id_attore);
+            }
+        } catch (...) {
+            cout << "Could not read the line " << i << " of Releations file" << endl;
+        }
+    }
+}
+```
+
+In this function, we only ose the file `Relazioni.txt`. As done before, we loop on all the elements of this file, creating
+
+- `id_film`: index key of each movie
+- `id_attore`: index key of each actor
+
+Then we exclude the add with `.push_back` this two integers at the end of the vectors of their respective dictionaries. If a line is empty, we skip it.
+
+---
+
+## Closeness Centrality
+
+That's where I tried to experiment a little bit. The original idea to optimize the algorithm was to take a uniformly random subset of actors. This method has a problem: no matter how smart you take this _random_ subset, you are going to exclude some important actors. And I would never want to exclude Ewan McGregor from something!
+
+So I found this [paper](https://arxiv.org/abs/1704.01077) and I decided that this where the way to go
+
+### The problem
+
+Given a connected graph $G = (V, E)$, the closeness centrality of a vertex $v$ is defined as
+$$ \frac{n-1}{\displaystyle \sum_{\omega \in V} d(v,w)} $$
+
+The idea behind this definition is that a central node should be very efficient in spreading
+information to all other nodes: for this reason, a node is central if the average number of links
+needed to reach another node is small.
+
+This measure is widely used in the analysis of real-world complex networks, and the problem of selecting the $k$ most central vertices has been deeply analysed in the last decade. However, this problem is computationally not easy, especially for large networks.
+
+This paper proposes a new algorithm that here is implemented to  compute the most central actors in the IMDB collaboration network, where two actors are linked if they played together in a movie.
+
+---
+
+In order to compute the $k$ vertices with largest closeness, the textbook algorithm computes
+$c(v)$ for each $v$ and returns the $k$ largest found values. The main bottleneck of this approach
+is the computation of $d(v, w)$ for each pair of vertices $v$ and $w$ (that is, solving the All
+Pairs Shortest Paths or APSP problem). This can be done in two ways: either by using fast
+matrix multiplication, in time $O(n^{2.373} \log n)$ _[Zwick 2002; Williams 2012]_, or by performing _a breadth-first search_ (in short, BFS) from each vertex $v \in V$ , in time $O(mn)$, where $n = |V|$ and $m = |E|$. Usually, the BFS approach is preferred because the other approach contains big constants hidden in the O notation, and because real-world networks are usually sparse, that is, $m$ is not much bigger than n$$. However, also this approach is too time-consuming if the input graph is very big
+
+### Preliminaries
+
+In a connected graph, the farness of a node $v$ in a graph $G = (V,E)$ is
+$$ f(v) = \frac{1}{n-1} \displaystyle \sum_{\omega \in V} d(v,w)$$
+and the closeness centrality of $v$ is $1/f(v)$ . In the disconnected case, the most natural generalization would be
+$$ f(v) = \frac{1}{r(v)-1}\displaystyle \sum_{\omega \in R(v)} d(v,w) $$
+and $c(v)=1/f(v)$, where $R(v)$ is the set of vertices reachable from $v$, and $r(v) = |R(v)|$.
+
+But there is a problem:  if $v$ has only one neighbor $w$ at distance $1$, and $w$ has out-degree $0$, then $v$ becomes very central according to this measure, even if $v$ is intuitively peripheral. For this reason, we consider the following generalization, which is quite established in the literature _[Lin 1976; Wasserman and Faust 1994; Boldi and Vigna 2013; 2014; Olsen et al. 2014]:_
+$$ f(v) = \frac{n-1}{(r(v)-1)^2}\displaystyle \sum_{\omega \in R(v)} d(v,w) \qquad \qquad c(v)= \frac{1}{f(v)} $$
+If a vertex v has (out)degree 0, the previous fraction becomes $\frac{0}{0}$ : in this case, the closeness of $v$ is set to $0$
+
+
+### The algorithm
+
+In this section, we describe our new approach for computing the k nodes with maximum closeness (equivalently, the $k$ nodes with minimum farness, where the farness $f(v)$ of a vertex is $1/c(v)$ as defined before.
+
+If we have more than one node with the same score, we output all nodes having a centrality bigger than or equal to the centrality of the $k-th$ node.  The basic idea is to keep track of a lower bound on the farness of each node, and to skip the analysis of a vertex $v$ if this lower bound implies that $v$ is not in the _top k_.
+
+More formally, let us assume that we know the farness of some vertices $v_1, ... , v_l$ and a lower bound $L(w)$ on the farness of any other vertex $w$. Furthermore, assume that there
+are $k$ vertices among $v_1,...,v_l$ verifying
+$$f(v_i) > L(w) \quad \forall ~ w \in V \setminus \{v_1, ..., v_l\}$$
+and hence $f(w) \leq L(w) < f (w) \forall w \in V \setminus \{v_1, ..., v_l\}. Then, we can safely skip the exact computation of $f (w)$ for all remaining nodes $w$, because the $k$ vertices with smallest farness are among $v_1,...,v_l$.
+
+Let's write the Algorithm in pseudo-code, but keep in mind that we will modify it a little bit during the real code.
+
+```cpp
+ Input : A graph G = (V, E)
+    Output: Top k nodes with highest closeness and their closeness values c(v)
+        global L, Q ← computeBounds(G);
+        global Top ← [ ];
+        global Farn;
+
+        for v ∈ V do Farn[v] = +∞;
+        while Q is not empty do
+            v ← Q.extractMin();
+            if |Top| ≥ k and L[v] > Farn[Top[k]] then return Top;
+            Farn[v] ← updateBounds(v); // This function might also modify L
+            add v to Top, and sort Top according to Farn;
+            update Q according to the new bounds;
+```
+
+- We use a list `TOP` containing all “analysed” vertices $v_1 , ... , v_l$ in increasing order of farness
+- We also need a priority queue `Q` containing all vertices _“not analysed, yet”_, in increasing order of lower bound $L$ (this way, the head of $Q$ always has the smallest value of $L$ among all vertices in $Q$).
+- At the beginning, using the function computeBounds(), we compute a first bound $L(v)$ for each vertex $v$, and we fill the queue $Q$ according to this bound.
+- Then, at each step, we extract the first element $v$ of `Q`: if $L(v)$ is smaller than the _k-th_ biggest farness computed until now (that is, the farness of the _k-th_ vertex in variable `Top`), we can safely stop, because for each $x \in Q, f (x) \leq L(x) \leq L(v) < f (Top[k])$, and $x$ is not in the top $k$.
+- Otherwise, we run the function `updateBounds(v)`, which performs a BFS from $v$, returns the farness of $v$, and improves the bounds `L` of all other vertices. Finally, we insert $v$ into `Top` in the right position, and we update `Q` if the lower bounds have changed.
+
+The crucial point of the algorithm is the definition of the lower bounds, that is, the definition of the functions `computeBounds` and `updateBounds`.  Let's define them in a conservative way (due to the fact that I only have a laptop and 16GB of RAM)
+
+- **computeBounds:** The conservative strategy needs time $O(n)$: it simply sets $L(v) = 0$ for each $v$, and it fills `Q` by inserting nodes in decreasing order of degree (the idea is that vertices with high degree have small farness, and they should be analysed as early as possible, so that the values in TOP are correct as soon as possible). Note that the vertices can be sorted in time $O(n)$ using counting sort.
+
+- **updateBounds:** the conservative strategy does not improve `L`, and it cuts the BFS as soon as it is sure that the farness of w is smaller than the k-th biggest farness found until now, that is, `Farn[Top[k]]`. If the BFS is cut, the function returns $+\infty$, otherwise, at the end of the BFS we have computed the farness of $v$, and we can return it. The running time of this procedure is $O(m)$ in the worst case, but it can be much better in practice. It remains to define how the procedure can be sure that the farness of $v$ is at least $x$: to this purpose, during the BFS, we update a lower bound on the farness of $v$. The idea behind this bound is that, if we have already visited all nodes up to distance $d$, we can upper bound the closeness centrality of $v$ by setting distance $d + 1$ to a number of vertices equal to the number of edges “leaving” level $d$, and distance $d + 2$ to all the remaining vertices.
+
+What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define Q either, as we will loop over each vertex anyway, and the order does not matter.
