@@ -312,7 +312,7 @@ If we have more than one node with the same score, we output all nodes having a 
 More formally, let us assume that we know the farness of some vertices $v_1, ... , v_l$ and a lower bound $L(w)$ on the farness of any other vertex $w$. Furthermore, assume that there
 are $k$ vertices among $v_1,...,v_l$ verifying
 $$f(v_i) > L(w) \quad \forall ~ w \in V \setminus \{v_1, ..., v_l\}$$
-and hence $f(w) \leq L(w) < f (w) \forall w \in V \setminus \{v_1, ..., v_l\}. Then, we can safely skip the exact computation of $f (w)$ for all remaining nodes $w$, because the $k$ vertices with smallest farness are among $v_1,...,v_l$.
+and hence $f(w) \leq L(w) < f (w) \forall w \in V \setminus \{v_1, ..., v_l\}$. Then, we can safely skip the exact computation of $f (w)$ for all remaining nodes $w$, because the $k$ vertices with smallest farness are among $v_1,...,v_l$.
 
 Let's write the Algorithm in pseudo-code, but keep in mind that we will modify it a little bit during the real code.
 
