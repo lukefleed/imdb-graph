@@ -312,7 +312,7 @@ If we have more than one node with the same score, we output all nodes having a 
 More formally, let us assume that we know the farness of some vertices $v_1, ... , v_l$ and a lower bound $L(w)$ on the farness of any other vertex $w$. Furthermore, assume that there
 are $k$ vertices among $v_1,...,v_l$ verifying
 $$f(v_i) > L(w) \quad \forall ~ w \in V \setminus \{v_1, ..., v_l\}$$
-and hence $f(w) \leq L(w) < f (w) \forall w \in V \setminus \{v_1, ..., v_l\}$. Then, we can safely skip the exact computation of $f (w)$ for all remaining nodes $w$, because the $k$ vertices with smallest farness are among $v_1,...,v_l$.
+and hence $f(w) \leq L(w) < f (w) ~ ~  \forall w \in V \setminus \{v_1, ..., v_l\}$. Then, we can safely skip the exact computation of $f (w)$ for all remaining nodes $w$, because the $k$ vertices with smallest farness are among $v_1,...,v_l$.
 
 Let's write the Algorithm in pseudo-code, but keep in mind that we will modify it a little bit during the real code.
 
@@ -344,4 +344,73 @@ The crucial point of the algorithm is the definition of the lower bounds, that i
 
 - **updateBounds:** the conservative strategy does not improve `L`, and it cuts the BFS as soon as it is sure that the farness of w is smaller than the k-th biggest farness found until now, that is, `Farn[Top[k]]`. If the BFS is cut, the function returns $+\infty$, otherwise, at the end of the BFS we have computed the farness of $v$, and we can return it. The running time of this procedure is $O(m)$ in the worst case, but it can be much better in practice. It remains to define how the procedure can be sure that the farness of $v$ is at least $x$: to this purpose, during the BFS, we update a lower bound on the farness of $v$. The idea behind this bound is that, if we have already visited all nodes up to distance $d$, we can upper bound the closeness centrality of $v$ by setting distance $d + 1$ to a number of vertices equal to the number of edges “leaving” level $d$, and distance $d + 2$ to all the remaining vertices.
 
-What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define Q either, as we will loop over each vertex anyway, and the order does not matter.
+---
+
+What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define `Q` either, as we will loop over each vertex anyway, and the order does not matter.
+
+#### Multi-threaded BFS
+
+We are working on a web-scale graph, multi-threading was a must. At first, we definite a `vector<thread>` and a mutex to prevent simultaneous accesses to the `top_actors` vector. Then preallocate the number of threads we want to use.
+
+```cpp
+vector<thread> threads;
+mutex top_actors_mutex;
+threads.reserve(N_THREADS);
+```
+
+Now we can loop con the threads vector and create a vector of booleans `enqueued` to see which vertices we put in the queue during the BFS
+
+```cpp
+threads.push_back(thread([&top_actors,&top_actors_mutex,&k](int start) {
+vector<bool> enqueued(MAX_ACTOR_ID, false);
+```
+
+The we can start looping on each vertex. An import thing to keep in mind is that the actor must exist, otherwise `A[actor_id]` would attempt to write `A`, and this may produce a race condition if multiple threads do it at the same time.
+
+Now let's consider this part of the algorithm explained before
+
+>  if $|Top| \geq k$ and `L[v]` $>$ `Farn[Top[k]]` then return `Top`
+
+This means that we can not exploit the lower bound of our vertex to stop the loop, as we are not updating lower bounds L. We just compute the farness of our vertex using a BFS.
+
+To do that we are using a `FIFO` of pairs `(actor_index, distance from our vector)` and we initialize all the elements of the vector of booleans as _false_. The algorithm needs:
+
+  - `int r = 0`: |R|, where R is the set of vertices reachable from our vertex
+  - `long long int sum_distances = 0`: Sum of the distances to other nodes
+  - `int prev_distance = 0`: Previous distance, to see when we get to a deeper level of the BFS
+
+Now we can loop on the FIFO structure created before
+
+```cpp
+q.push(make_pair(actor_id, 0));
+enqueued[actor_id] = true;
+bool skip = false;
+while (!q.empty()) {
+    auto [bfs_actor_id, distance] = q.front();
+    q.pop();
+```
+What we need now is a lower bound on the farness. So if the we find that `distance > prev_distance` we acquire ownership of the mutex, wait if another thread already owns it. Release the mutex when destroyed. Now we are in the first item of the next exploration level, we assume r to have the maximum possibile value (`A.size()`).
+
+Now we can definite the lower bound of the farness:
+
+```cpp
+double farness_lower_bound = 1.0 / ((double)A.size() - 1) * (sum_distances + q.size() * distance);
+```
+
+Then if this lower bound for the farness is greater than or equal of the _k-1th_ farness, we stop the BFS and destroy `top_actors_lock`, releasing the mutex.
+
+---
+
+Now we have to compute the farness of our vertex `actor_id` (we are still in the `while` that is looping on the FIFO). To do that we consider the integer `bfs_film_id` and loop on its adjacencies and add them to the queue
+
+```cpp
+for (int bfs_film_id : A[bfs_actor_id].film_indices) {
+    for (int adj_actor_id : F[bfs_film_id].actor_indicies) {
+        if (!enqueued[adj_actor_id]) {
+        // The adjacent vertices have distance +1 w.r.t. the current vertex
+            q.push(make_pair(adj_actor_id, distance+1));
+            enqueued[adj_actor_id] = true;
+        }
+    }
+}
+```
