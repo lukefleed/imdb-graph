@@ -5,7 +5,7 @@ import numpy as np
 import os
 import csv
 
-MIN_MOVIES = 42  # Only keep relations for actors that have made more than this many movies
+MIN_MOVIES = 72  # Only keep relations for actors that have made more than this many movies
 
 #-----------------DOWNLOAD .GZ FILES FROM IMDB DATABASE-----------------#
 
