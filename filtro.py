@@ -5,7 +5,7 @@ import numpy as np
 import os
 import csv
 
-MIN_MOVIES = 72  # Only keep relations for actors that have made more than this many movies
+MIN_MOVIES = 30  # Only keep relations for actors that have made more than this many movies
 
 #-----------------DOWNLOAD .GZ FILES FROM IMDB DATABASE-----------------#
 
@@ -32,6 +32,8 @@ for url in urls:
   download_url(url)
 
 os.makedirs("data", exist_ok=True) # Generate (recursively) folders, ignores the comand if they already exists
+
+#------------------------------FILTERING------------------------------#
 
 print("Filtering actors...")
 df_attori = pd.read_csv(

@@ -107,7 +107,7 @@ filtered_tconsts = df_film["tconst"].to_list()
 ```
 
 
-Then we can generate the final filtered file `FilmFiltrati.txt` that has only two columns: `nconst` and `primaryName`
+Then we can generate the final filtered file `FilmFiltrati.txt` that has only two columns: `tconst` and `primaryName`
 
 ---
 
@@ -348,7 +348,7 @@ The crucial point of the algorithm is the definition of the lower bounds, that i
 
 What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define `Q` either, as we will loop over each vertex anyway, and the order does not matter.
 
-#### Multi-threaded BFS
+#### Multi-threaded implementation
 
 We are working on a web-scale graph, multi-threading was a must. At first, we definite a `vector<thread>` and a mutex to prevent simultaneous accesses to the `top_actors` vector. Then preallocate the number of threads we want to use.
 
