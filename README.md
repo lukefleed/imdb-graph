@@ -267,12 +267,12 @@ Then we exclude the add with `.push_back` this two integers at the end of the ve
 
 That's where I tried to experiment a little bit. The original idea to optimize the algorithm was to take a uniformly random subset of actors. This method has a problem: no matter how smart you take this _random_ subset, you are going to exclude some important actors. And I would never want to exclude Ewan McGregor from something!
 
-So I found this [paper](https://arxiv.org/abs/1704.01077) and I decided that this where the way to go
+So I found this [paper](https://arxiv.org/abs/1704.01077) and I decided that this was the way to go
 
 ### The problem
 
 Given a connected graph $G = (V, E)$, the closeness centrality of a vertex $v$ is defined as
-$$ \frac{n-1}{\displaystyle \sum_{\omega \in V} d(v,w)} $$
+$$ C(v) = \frac{n-1}{\displaystyle \sum_{\omega \in V} d(v,w)} $$
 
 The idea behind this definition is that a central node should be very efficient in spreading
 information to all other nodes: for this reason, a node is central if the average number of links
@@ -288,7 +288,7 @@ In order to compute the $k$ vertices with largest closeness, the textbook algori
 $c(v)$ for each $v$ and returns the $k$ largest found values. The main bottleneck of this approach
 is the computation of $d(v, w)$ for each pair of vertices $v$ and $w$ (that is, solving the All
 Pairs Shortest Paths or APSP problem). This can be done in two ways: either by using fast
-matrix multiplication, in time $O(n^{2.373} \log n)$ _[Zwick 2002; Williams 2012]_, or by performing _a breadth-first search_ (in short, BFS) from each vertex $v \in V$ , in time $O(mn)$, where $n = |V|$ and $m = |E|$. Usually, the BFS approach is preferred because the other approach contains big constants hidden in the O notation, and because real-world networks are usually sparse, that is, $m$ is not much bigger than n$$. However, also this approach is too time-consuming if the input graph is very big
+matrix multiplication, in time $O(n^{2.373} \log n)$ _[Zwick 2002; Williams 2012]_, or by performing _a breadth-first search_ (in short, BFS) from each vertex $v \in V$ , in time $O(mn)$, where $n = |V|$ and $m = |E|$. Usually, the BFS approach is preferred because the other approach contains big constants hidden in the O notation, and because real-world networks are usually sparse, that is, $m$ is not much bigger than $n$. However, also this approach is too time-consuming if the input graph is very big
 
 ### Preliminaries
 
@@ -317,8 +317,9 @@ and hence $f(w) \leq L(w) < f (w) ~ ~  \forall w \in V \setminus \{v_1, ..., v_l
 Let's write the Algorithm in pseudo-code, but keep in mind that we will modify it a little bit during the real code.
 
 ```cpp
- Input : A graph G = (V, E)
-    Output: Top k nodes with highest closeness and their closeness values c(v)
+Input : A graph G = (V, E)
+Output: Top k nodes with highest closeness and their closeness values c(v)
+
         global L, Q ← computeBounds(G);
         global Top ← [ ];
         global Farn;
@@ -348,7 +349,11 @@ The crucial point of the algorithm is the definition of the lower bounds, that i
 
 What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define `Q` either, as we will loop over each vertex anyway, and the order does not matter.
 
-#### Multi-threaded implementation
+The lower bound is
+
+$$ \frac{1}{n-1} (\sigma_{d-1} + n_d \cdot d) $$
+
+<!-- #### Multi-threaded implementation
 
 We are working on a web-scale graph, multi-threading was a must. At first, we definite a `vector<thread>` and a mutex to prevent simultaneous accesses to the `top_actors` vector. Then preallocate the number of threads we want to use.
 
@@ -413,4 +418,22 @@ for (int bfs_film_id : A[bfs_actor_id].film_indices) {
         }
     }
 }
-```
+``` -->
+
+## Results
+
+Tested on Razer Blade 15 (2018) with an i7-8750H (6 core, 12 thread) and 16GB of DDR4 2666MHz RAM. The algorithm is taking full advantage of all 12 threads
+
+| MIN_ACTORS | k | Time for filtering | Time to compile |
+|------------|---|--------------------|-----------------|
+|42 | 100 | 1m 30s | 3m 48s|
+|31 | 100 | 1m 44s | 8m 14s|
+|20 | 100 | 3m     | 19m 34s|
+
+
+How the files changes in relation to MIN_ACTORS
+
+| MIN_ACTORS | Attori.txt elements | FilmFiltrati.txt elements | Relazioni.txt elements |
+|------------|---------------------|---------------------------|------------------------|
+| 42         |  7921               | 266337                    | 545848                 |
+| 31         |  13632              | 325087                    | 748580                 |

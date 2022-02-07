@@ -5,7 +5,7 @@ import numpy as np
 import os
 import csv
 
-MIN_MOVIES = 30  # Only keep relations for actors that have made more than this many movies
+MIN_MOVIES = 42  # Only keep relations for actors that have made more than this many movies
 
 #-----------------DOWNLOAD .GZ FILES FROM IMDB DATABASE-----------------#
 
@@ -79,4 +79,5 @@ df_attori.to_csv('data/Attori.txt', sep='\t', quoting=csv.QUOTE_NONE, escapechar
 df_film.to_csv('data/FilmFiltrati.txt', sep='\t', quoting=csv.QUOTE_NONE, escapechar='\\', columns=['tconst', 'primaryTitle'], header=False, index=False)
 df_relazioni.to_csv('data/Relazioni.txt', sep='\t', quoting=csv.QUOTE_NONE, escapechar='\\', columns=['tconst', 'nconst'], header=False, index=False)
 
-# Takes about 1 min 30 s with MIN_MOVIES = 42
+# Takes about 1 min 30 s with MIN_MOVIES = 42 ----> kenobi with k=100 took 3m 48s
+# Takes about 3 min with MIN_MOVIES = 20 ----> kenobi with k=100 took 19m 34s

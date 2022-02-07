@@ -189,7 +189,7 @@ vector<pair<int, double>> closeness(const size_t k) {
     mutex top_actors_mutex; // The threads write to top_actors, so another thread reading top_actors at the same time may find it in an invalid state (if the read happens while the other thread is still writing)
     threads.reserve(N_THREADS);
     for (int i = 0; i < N_THREADS; i++) {
-        // Lancio i thread
+        // Launching the threads
         threads.push_back(thread([&top_actors,&top_actors_mutex,&k](int start) {
             vector<bool> enqueued(MAX_ACTOR_ID, false); // Vector to see which vertices with put in the queue during the BSF
             // We loop over each vertex
@@ -265,7 +265,7 @@ vector<pair<int, double>> closeness(const size_t k) {
     }
 
     for (auto& thread : threads)
-        // Aspetto che tutti i thread abbiano finito
+        // Waiting for all threads to finish
         thread.join();
 
     return top_actors;
@@ -332,7 +332,7 @@ vector<pair<int, double>> harmonic(const size_t k) { //
                     cout << actor_id << " " << A[actor_id].name << " SKIPPED" << endl;
                     continue;
                 }
-                // BFS is over, we compute the farness
+                // BFS is over, we compute the centrality
                 double harmonic_centrality = sum_reverse_distances;
                 if (!isfinite(harmonic_centrality))
                     continue;
@@ -369,7 +369,7 @@ int main()
 
     // ------------------------------------------------------------- //
 
-    // FUNZIONE CERCA FILMclos
+    // FUNZIONE CERCA FILM
 
     // cout << "Cerca film: ";
     // string titolo;
@@ -400,7 +400,7 @@ int main()
    // ------------------------------------------------------------- //
 
     cout << "Grafo, grafo delle mie brame... chi è il più centrale del reame?\n" <<endl;
-    const size_t k = 500;
+    const size_t k = 100;
     auto top_by_closeness = closeness(k);
     auto top_by_harmonic = harmonic(k);
     printf("\n%36s        %36s\n", "CLOSENESS CENTRALITY", "HARMONIC CENTRALITY");
