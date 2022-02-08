@@ -1,6 +1,23 @@
-# IMDb Graph - Documentation
+# Closeness and Harmonic centrality over the IMDb Graph
 
-Introduction **TODO**
+**IMPORTANT:** since github does not render the math text, to properly read this README you have to clone the repo locally or install this extension that will render the text
+
+> [GitHub Math Display](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda/related)
+
+---
+
+This project is an exercise realized to implement a Social Network Analysis using the data of the Internet Movie Database (IMDb).
+
+On this data we define an undirected graph $G=(V,E)$ where
+
+- the vertex V are the actor and the actress
+- the non oriented vertices in E links the actors and the actresses if they played together in a movie.
+
+The aim of the project was to build a social network over this graph and studying its centralities.
+
+The first challenge was to filter the raw data downloaded from IMDb. One of the first (and funnier) problem was to delete all the actors that works in the Adult industry. They make a lot of movies together and this would have altered the results.
+
+Then, the real challenge has come. We are working with a ton of actors, a brute force approach would have required years to compile: an efficient algorithm was necessary
 
 ## Understanding the data
 
@@ -345,13 +362,13 @@ The crucial point of the algorithm is the definition of the lower bounds, that i
 
 - **updateBounds:** the conservative strategy does not improve `L`, and it cuts the BFS as soon as it is sure that the farness of w is smaller than the k-th biggest farness found until now, that is, `Farn[Top[k]]`. If the BFS is cut, the function returns $+\infty$, otherwise, at the end of the BFS we have computed the farness of $v$, and we can return it. The running time of this procedure is $O(m)$ in the worst case, but it can be much better in practice. It remains to define how the procedure can be sure that the farness of $v$ is at least $x$: to this purpose, during the BFS, we update a lower bound on the farness of $v$. The idea behind this bound is that, if we have already visited all nodes up to distance $d$, we can upper bound the closeness centrality of $v$ by setting distance $d + 1$ to a number of vertices equal to the number of edges “leaving” level $d$, and distance $d + 2$ to all the remaining vertices.
 
----
-
 What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define `Q` either, as we will loop over each vertex anyway, and the order does not matter.
 
 The lower bound is
 
 $$ \frac{1}{n-1} (\sigma_{d-1} + n_d \cdot d) $$
+
+where $\sigma$ is the partial sum.
 
 <!-- #### Multi-threaded implementation
 
@@ -420,15 +437,42 @@ for (int bfs_film_id : A[bfs_actor_id].film_indices) {
 }
 ``` -->
 
-## Results
+
+---
+
+## Harmonic Centrality
+
+The algorithm described before can be easy applied to the harmonic centrality, defined as
+
+$$ h(v) = \sum_{w \in V} \frac{1}{d(v,w)} $$
+
+The main difference here is that we don't have a farness (where small farness implied bigger centrality). Then we won't need a lower bound either. Since the biggest the number is the higher is the centrality we have to adapt the algorithm.
+
+Instead of a lowe bound, we need an upper bound such that
+
+$$ h(v) \leq U_B (v) \leq h(w) $$
+
+We can easily define considering the worst case that could happen at each state:
+
+$$ U_b (v) = \sigma_{d-1} + \frac{n_d}{d} + \frac{n - r - n_d}{d+1}$$
+
+Why this? We are at the level $d$ of our exploration, so we already know the partial sum $\sigma_{d-1}$. The worst case here in this level were we are connected to all the other nodes so we add the other two factors $\frac{n_d}{d} + \frac{n - r - n_d}{d+1}$
+
+Then the algorithm works with the same _top-k_ philosophy, just with an upper bound instead of a lower bound
+
+---
+
+## Benchmarks
 
 Tested on Razer Blade 15 (2018) with an i7-8750H (6 core, 12 thread) and 16GB of DDR4 2666MHz RAM. The algorithm is taking full advantage of all 12 threads
 
-| MIN_ACTORS | k | Time for filtering | Time to compile |
-|------------|---|--------------------|-----------------|
-|42 | 100 | 1m 30s | 3m 48s|
-|31 | 100 | 1m 44s | 8m 14s|
-|20 | 100 | 3m     | 19m 34s|
+| MIN_ACTORS | k   | Time for filtering | Time to compile |
+|------------|-----|--------------------|-----------------|
+|42          | 100 | 1m 30s             | 3m 48s          |
+|31          | 100 | 1m 44s             | 8m 14s          |
+|20          | 100 | 2m 4s              | 19m 34s         |
+|15          | 100 | 2m 1s              | 37m 34s         |
+| 5          | 100 | 2m 10s             | 2h 52m 57s      |
 
 
 How the files changes in relation to MIN_ACTORS
@@ -437,3 +481,6 @@ How the files changes in relation to MIN_ACTORS
 |------------|---------------------|---------------------------|------------------------|
 | 42         |  7921               | 266337                    | 545848                 |
 | 31         |  13632              | 325087                    | 748580                 |
+| 20         |  26337              | 394630                    | 1056544                |
+| 15         |  37955              | 431792                    | 1251717                |
+|  5         |  126771             | 547306                    | 1949325                |
