@@ -325,7 +325,7 @@ If a vertex v has (out)degree 0, the previous fraction becomes $\frac{0}{0}$ : i
 
 In this section, we describe our new approach for computing the k nodes with maximum closeness (equivalently, the $k$ nodes with minimum farness, where the farness $f(v)$ of a vertex is $1/c(v)$ as defined before.
 
-If we have more than one node with the same score, we output all nodes having a centrality bigger than or equal to the centrality of the $k-th$ node.  The basic idea is to keep track of a lower bound on the farness of each node, and to skip the analysis of a vertex $v$ if this lower bound implies that $v$ is not in the _top k_.
+The basic idea is to keep track of a lower bound on the farness of each node, and to skip the analysis of a vertex $v$ if this lower bound implies that $v$ is not in the _top k_.
 
 - Firstly we compute the farness of the first $k$ vertices and save them in vector `top_actors`
 - Then, for all the next vertices, we define a lower bound
