@@ -1,5 +1,7 @@
 # Closeness and Harmonic centrality over the IMDb Graph
 
+## Introduction
+
 **IMPORTANT:** since Github does not render the math text, to properly read this README you have to clone the repo locally or install this extension that will render the math text.
 
 > [GitHub Math Display](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda/related)
@@ -168,7 +170,7 @@ At the end, we can finally generate the file `Relazioni.txt` containing the colu
 
 Now that we have understood the python code, let's start with the core of the algorithm, written in C++
 
-![](https://i.redd.it/icysmnx0lpsy.jpg)
+<!-- ![](https://i.redd.it/icysmnx0lpsy.jpg) -->
 
 ## Data structures to work with
 
