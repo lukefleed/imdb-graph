@@ -1,6 +1,6 @@
 # Closeness and Harmonic centrality over the IMDb Graph
 
-**IMPORTANT:** since github does not render the math text, to properly read this README you have to clone the repo locally or install this extension that will render the text
+**IMPORTANT:** since Github does not render the math text, to properly read this README you have to clone the repo locally or install this extension that will render the math text.
 
 > [GitHub Math Display](https://chrome.google.com/webstore/detail/github-math-display/cgolaobglebjonjiblcjagnpmdmlgmda/related)
 
@@ -11,11 +11,11 @@ This project is an exercise realized to implement a Social Network Analysis usin
 On this data we define an undirected graph $G=(V,E)$ where
 
 - the vertex V are the actor and the actress
-- the non oriented vertices in E links the actors and the actresses if they played together in a movie.
+- the non oriented edges in E links the actors and the actresses if they played together in a movie.
 
 The aim of the project was to build a social network over this graph and studying its centralities.
 
-The first challenge was to filter the raw data downloaded from IMDb. One of the first (and funnier) problem was to delete all the actors that works in the Adult industry. They make a lot of movies together and this would have altered the results.
+The first challenge was to filter the raw data downloaded from IMDb. One of the first (and funnier) problems was to delete all the actors that works in the Adult industry. They make a lot of movies together and this would have altered the results.
 
 Then, the real challenge has come. We are working with a ton of actors, a brute force approach would have required years to compile: an efficient algorithm was necessary
 
@@ -67,7 +67,7 @@ _Contains the following information for names:_
 
 > All This section refers to what's inside the file [filtro.py](https://github.com/lukefleed/imdb-graph/blob/main/filtro.py)
 
-Now that we have downloaded all the files from the dataset, we have to filter them and modify them in order to easly work with them.
+Now that we have downloaded all the files from the dataset, we have to filter them and modify them in order to easily work with them.
 
 ### name.basics.tsv
 
@@ -77,16 +77,16 @@ For this file we only need the following columns
 - `primaryTitle`
 - `primaryProfession`
 
-Since all the actors starts with the string `nm0` we can remove it to clean the output. Furthermore a lot of actors/actresses do more than one job (director etc..), to avoid excluding important actors we consider all the one that have the string `actor/actress` in their profession. In this way, both someone who is classified as `actor` or as `actor, director` are taken into consideration
+Since all the actors starts with the string `nm0` we can remove it to clean the output. Furthermore a lot of actors/actresses do more than one job (director etc..). To avoid excluding important actors we consider all the ones that have the string `actor/actress` in their profession. In this way, both someone who is classified as `actor` or as `actor, director` is taken into consideration
 
-```python
+<!-- ```python
 df_attori = pd.read_csv(
   'name.basics.tsv.gz', sep='\t', compression='gzip',
   usecols=['nconst', 'primaryName', 'primaryProfession'],
   dtype={'primaryName': 'U', 'primaryProfession': 'U'},
   converters={'nconst': lambda x: int(x.lstrip("nm0"))})
 df_attori.query('primaryProfession.str.contains("actor") or primaryProfession.str.contains("actress")', inplace=True)
-```
+``` -->
 Then we can generate the final filtered file `Attori.txt` that has only two columns: `nconst` and `primaryName`
 
 ---
@@ -102,15 +102,15 @@ For this file we only need the following columns
 
 Since all the movies starts with the string `t0` we can remove it to clean the output. In this case, we also want to remove all the movies for adults.
 
-There are a lot of junk categories considered in IMDb, we are considering all the non adult movies in this whitelist
+There is a lot of _junk_ in IMDb. To avoid dealing with un-useful data, we are considering all the non-adult movies in this whitelist
 
 - `movie`
 - `tvSeries`
 - `tvMovie`
 - `tvMiniSeries`
 
-Why this in particolar? Benefits on the computational cost. There are (really) a lot of single episodes listed in IMDb: to remove them without loosing the most important relations, we only consider the category `tvSeries`. This category list a TV-Series as a single element, not divided in multiple episodes. In this way we will loose some of the relations with minor actors that may appears in just a few episodes. But we will have preserved the relations between the protagonist of the show. _It's not much, but it's an honest work_
-
+Why this in particolar? Benefits on the computational cost. There are (really) a lot of single episodes listed in IMDb: to remove them without loosing the most important relations, we only consider the category `tvSeries`. This category list a TV-Series as a single element, not divided in multiple episodes. In this way we will loose some of the relations with minor actors that may appear in just a few episodes. But we will have preserved the relations between the protagonists of the show.
+<!--
 ```python
 print("Filtering films...")
 df_film = pd.read_csv(
@@ -121,8 +121,7 @@ df_film = pd.read_csv(
 df_film.query('not isAdult and titleType in ["movie", "tvSeries", "tvMovie", "tvMiniSeries"]',
               inplace=True)
 filtered_tconsts = df_film["tconst"].to_list()
-```
-
+``` -->
 
 Then we can generate the final filtered file `FilmFiltrati.txt` that has only two columns: `tconst` and `primaryName`
 
@@ -136,8 +135,8 @@ For this file we only need the following columns
 - `nconst`
 - `category`
 
-As before, we clean the output removing unnecessary strings. Then we create an array on unique actor ids (`nconst`) and an array of how may times they appear (`counts`). This will give us the number of movies they appear in. And here it comes the core of this filtering. We define at the start of the algorithm a constant `MIN_MOVIES`. This integer is the minimum number of movies that an actor has to have done in his carrier to be considered in this graph. The reason to do that it's purely computational. If I have to consider all actors the time for the code to compile is the _year(s)'s_ order, that's not good. We are making an approximation: if an actor has less then a reasonable (_42_, as an example) number of movies made in his carrier, there is an high probability that he/she has an important role in our graph during the computation of the centralities.
-
+As before, we clean the output removing unnecessary strings. Then we create an array of unique actor ids (`nconst`) and an array of how may times they appear (`counts`). This will give us the number of movies they appear in. And here it comes the core of this filtering. We define at the start of the algorithm a constant `MIN_MOVIES`. This integer is the minimum number of movies that an actor has to have done in his carrier to be considered in this graph. The reason to do that it's purely computational. If I have to consider all actors the time for the code to compile is in the _year(s)'s_ order, that's not good. We are making an approximation: if an actor has less then a reasonable (_42_, as an example) number of movies made in his carrier, there is an high probability that he/she has an important role in our graph during the computation of the centralities.
+<!--
 ```python
 print("Filtering relations...")
 df_relazioni = pd.read_csv(
@@ -149,11 +148,11 @@ df_relazioni.query('(category == "actor" or category == "actress") and tconst in
 nconsts, counts = np.unique(df_relazioni["nconst"].to_numpy(), return_counts=True)
 filtered_nconsts = nconsts[counts>=MIN_MOVIES]
 df_relazioni.query("nconst in @filtered_nconsts", inplace=True)
-```
+```-->
 
 Notice that we are only selecting actors and actresses that have at least a relation.
 
-```python
+<!-- ```python
 print("Re-filtering actors...")
 nconsts_with_relations = df_relazioni["nconst"].unique()
 df_attori.query("nconst in @nconsts_with_relations", inplace=True)
@@ -161,7 +160,7 @@ df_attori.query("nconst in @nconsts_with_relations", inplace=True)
 print("Re-filtering films...")
 tconsts_with_relations = df_relazioni["tconst"].unique()
 df_film.query("tconst in @tconsts_with_relations", inplace=True)
-```
+``` -->
 
 At the end, we can finally generate the file `Relazioni.txt` containing the columns `tconst` and `nconst`
 
@@ -173,7 +172,7 @@ Now that we have understood the python code, let's start with the core of the al
 
 ## Data structures to work with
 
-In this case we are working with tow simple `struct` for the classes _Film_ and _Actor_
+In this case we are working with two simple `struct` for the classes _Film_ and _Actor_
 
 ```cpp
 struct Film {
@@ -271,12 +270,12 @@ void BuildGraph()
 }
 ```
 
-In this function, we only ose the file `Relazioni.txt`. As done before, we loop on all the elements of this file, creating
+In this function, we only use the file `Relazioni.txt`. As done before, we loop on all the elements of this file, creating
 
 - `id_film`: index key of each movie
 - `id_attore`: index key of each actor
 
-Then we exclude the add with `.push_back` this two integers at the end of the vectors of their respective dictionaries. If a line is empty, we skip it.
+If both exists then we update le list of indices of movies that the actor of that id played in. In the same way, we updated the list of indices of actors that played in the movies with that id.
 
 ---
 
@@ -326,7 +325,18 @@ In this section, we describe our new approach for computing the k nodes with max
 
 If we have more than one node with the same score, we output all nodes having a centrality bigger than or equal to the centrality of the $k-th$ node.  The basic idea is to keep track of a lower bound on the farness of each node, and to skip the analysis of a vertex $v$ if this lower bound implies that $v$ is not in the _top k_.
 
-More formally, let us assume that we know the farness of some vertices $v_1, ... , v_l$ and a lower bound $L(w)$ on the farness of any other vertex $w$. Furthermore, assume that there
+- Firstly we compute the farness of the first $k$ vertices and save them in vector `top_actors`
+- Then, for all the next vertices, we define a lower bound
+    $$ \frac{n-1}{(n-1)^2} (\sigma_{d-1} + n_d \cdot d) $$
+
+    where $\sigma$ is the partial sum. This lower bound is updated each time that we move to another level of exploration during the BFS. In this way, if at a change of level in the BFS the lower bound of the vertex that we are computing is bigger than the k-th element of `top_actors`, we can skip it. Remember that the bigger the farness the lower the closeness. The idea is that: if at this level, it's already that bad, it can't improve during the remaining part of the BFS. So there is no reason to continue the computing
+
+    Instead, if at every level this lower bound is smaller than the k-th element of `top_actors` (which is the element with the biggest farness computed till now) it means that we have to add it to the vector and remove the last one.
+
+    I choose this particular lower bound because it's the worst case possible. When we are at a new level $d$ of the exploration we have already computed the sum of the formula up to the level $d-1$. And now the worst case at this level is that our vertex is connected to all the other vertices at level $d$ (that are $n_d$).
+
+
+<!-- More formally, let us assume that we know the farness of some vertices $v_1, ... , v_l$ and a lower bound $L(w)$ on the farness of any other vertex $w$. Furthermore, assume that there
 are $k$ vertices among $v_1,...,v_l$ verifying
 $$f(v_i) > L(w) \quad \forall ~ w \in V \setminus \{v_1, ..., v_l\}$$
 and hence $f(w) \leq L(w) < f (w) ~ ~  \forall w \in V \setminus \{v_1, ..., v_l\}$. Then, we can safely skip the exact computation of $f (w)$ for all remaining nodes $w$, because the $k$ vertices with smallest farness are among $v_1,...,v_l$.
@@ -362,13 +372,8 @@ The crucial point of the algorithm is the definition of the lower bounds, that i
 
 - **updateBounds:** the conservative strategy does not improve `L`, and it cuts the BFS as soon as it is sure that the farness of w is smaller than the k-th biggest farness found until now, that is, `Farn[Top[k]]`. If the BFS is cut, the function returns $+\infty$, otherwise, at the end of the BFS we have computed the farness of $v$, and we can return it. The running time of this procedure is $O(m)$ in the worst case, but it can be much better in practice. It remains to define how the procedure can be sure that the farness of $v$ is at least $x$: to this purpose, during the BFS, we update a lower bound on the farness of $v$. The idea behind this bound is that, if we have already visited all nodes up to distance $d$, we can upper bound the closeness centrality of $v$ by setting distance $d + 1$ to a number of vertices equal to the number of edges “leaving” level $d$, and distance $d + 2$ to all the remaining vertices.
 
-What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define `Q` either, as we will loop over each vertex anyway, and the order does not matter.
+What we are changing in this code is that since $L=0$ is never updated, we do not need to definite it. We will just loop over each vertex, in the order the map prefers. We do not need to define `Q` either, as we will loop over each vertex anyway, and the order does not matter. -->
 
-The lower bound is
-
-$$ \frac{1}{n-1} (\sigma_{d-1} + n_d \cdot d) $$
-
-where $\sigma$ is the partial sum.
 
 <!-- #### Multi-threaded implementation
 
@@ -448,7 +453,7 @@ $$ h(v) = \sum_{w \in V} \frac{1}{d(v,w)} $$
 
 The main difference here is that we don't have a farness (where small farness implied bigger centrality). Then we won't need a lower bound either. Since the biggest the number is the higher is the centrality we have to adapt the algorithm.
 
-Instead of a lowe bound, we need an upper bound such that
+Instead of a lower bound, we need an upper bound such that
 
 $$ h(v) \leq U_B (v) \leq h(w) $$
 
@@ -473,7 +478,6 @@ Tested on Razer Blade 15 (2018) with an i7-8750H (6 core, 12 thread) and 16GB of
 |20          | 100 | 2m 4s              | 19m 34s         |
 |15          | 100 | 2m 1s              | 37m 34s         |
 | 5          | 100 | 2m 10s             | 2h 52m 57s      |
-
 
 How the files changes in relation to MIN_ACTORS
 
