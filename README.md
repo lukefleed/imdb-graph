@@ -15,6 +15,8 @@ On this data we define an undirected graph $G=(V,E)$ where
 - the vertex V are the actor and the actress
 - the non oriented edges in E links the actors and the actresses if they played together in a movie.
 
+![](visualization/Screenshot.png)
+
 The aim of the project was to build a social network over this graph and studying its centralities.
 
 The first challenge was to filter the raw data downloaded from IMDb. One of the first (and funnier) problems was to delete all the actors that works in the Adult industry. They make a lot of movies together and this would have altered the results.
@@ -62,7 +64,6 @@ _Contains the following information for names:_
 * **deathYear** – in YYYY format if applicable, else '\N'
 * **primaryProfession** (array of strings)– the top-3 professions of the person
 * **knownForTitles** (array of tconsts) – titles the person is known for
-
 
 
 ## Filtering
@@ -166,13 +167,14 @@ df_film.query("tconst in @tconsts_with_relations", inplace=True)
 
 At the end, we can finally generate the file `Relazioni.txt` containing the columns `tconst` and `nconst`
 
-# Understanding the code
+
+## Understanding the code
 
 Now that we have understood the python code, let's start with the core of the algorithm, written in C++
 
 <!-- ![](https://i.redd.it/icysmnx0lpsy.jpg) -->
 
-## Data structures to work with
+### Data structures to work with
 
 In this case we are working with two simple `struct` for the classes _Film_ and _Actor_
 
@@ -197,7 +199,7 @@ map<int, Film> F; // Dictionary {film_id (key): Film (value)}
 
 The comments explain everything needed
 
-## Data Read
+### Data Read
 
 This section refers to the function `DataRead()`
 
@@ -244,7 +246,7 @@ void DataRead()
 
 We are considering the files `Attori.txt` and `FilmFiltrati.txt`, we don't need the relations one for now. Once that we have read this two files, we loop on each one brutally filling the two dictionaries created before. If a line is empty, we skip it.
 
-## Building the Graph
+### Building the Graph
 
 This section refers to the function `BuildGraph()`
 
@@ -281,13 +283,13 @@ If both exists then we update le list of indices of movies that the actor of tha
 
 ---
 
-## Closeness Centrality
+### Closeness Centrality
 
 That's where I tried to experiment a little bit. The original idea to optimize the algorithm was to take a uniformly random subset of actors. This method has a problem: no matter how smart you take this _random_ subset, you are going to exclude some important actors. And I would never want to exclude Ewan McGregor from something!
 
 So I found this [paper](https://arxiv.org/abs/1704.01077) and I decided that this was the way to go
 
-### The problem
+#### The problem
 
 Given a connected graph $G = (V, E)$, the closeness centrality of a vertex $v$ is defined as
 $$ C(v) = \frac{n-1}{\displaystyle \sum_{\omega \in V} d(v,w)} $$
@@ -308,7 +310,7 @@ is the computation of $d(v, w)$ for each pair of vertices $v$ and $w$ (that is, 
 Pairs Shortest Paths or APSP problem). This can be done in two ways: either by using fast
 matrix multiplication, in time $O(n^{2.373} \log n)$ _[Zwick 2002; Williams 2012]_, or by performing _a breadth-first search_ (in short, BFS) from each vertex $v \in V$ , in time $O(mn)$, where $n = |V|$ and $m = |E|$. Usually, the BFS approach is preferred because the other approach contains big constants hidden in the O notation, and because real-world networks are usually sparse, that is, $m$ is not much bigger than $n$. However, also this approach is too time-consuming if the input graph is very big
 
-### Preliminaries
+#### Preliminaries
 
 In a connected graph, the farness of a node $v$ in a graph $G = (V,E)$ is
 $$ f(v) = \frac{1}{n-1} \displaystyle \sum_{\omega \in V} d(v,w)$$
@@ -321,7 +323,7 @@ $$ f(v) = \frac{n-1}{(r(v)-1)^2}\displaystyle \sum_{\omega \in R(v)} d(v,w) \qqu
 If a vertex v has (out)degree 0, the previous fraction becomes $\frac{0}{0}$ : in this case, the closeness of $v$ is set to $0$
 
 
-### The algorithm
+#### The algorithm
 
 In this section, we describe our new approach for computing the k nodes with maximum closeness (equivalently, the $k$ nodes with minimum farness, where the farness $f(v)$ of a vertex is $1/c(v)$ as defined before.
 
@@ -447,7 +449,7 @@ for (int bfs_film_id : A[bfs_actor_id].film_indices) {
 
 ---
 
-## Harmonic Centrality
+### Harmonic Centrality
 
 The algorithm described before can be easy applied to the harmonic centrality, defined as
 
@@ -490,3 +492,13 @@ How the files changes in relation to MIN_ACTORS
 | 20         |  26337              | 394630                    | 1056544                |
 | 15         |  37955              | 431792                    | 1251717                |
 |  5         |  126771             | 547306                    | 1949325                |
+
+## Visualization
+
+One of the funniest part of working with graph is visualizing them, isn't it? Thanks to the python library [pyvis](https://pyvis.readthedocs.io/en/latest/index.html) I was able to generate an html file with an interactive version of the IMDb interactions graph.
+
+To avoid creating a heavy and buggy webpage I have taken into consideration only a small set of actors. To do that I used the already working python script described before, considering only the actors with at least 100 movies made in their carrier.
+
+This created a very interesting graph: there are some very strong _neighborhood_ almost isolated from the rest. One explanation can be found in the Bollywood community. A lot of people making a lot of movies only for the indian market. This leads to the creation of a neighborhood strongly connected (not in the math way) but isolated form the other community, as the hollywood one as an example.
+
+![](visualization/Screenshot.png)
