@@ -501,4 +501,6 @@ To avoid creating a heavy and buggy webpage I have taken into consideration only
 
 This created a very interesting graph: there are some very strong _neighborhood_ almost isolated from the rest. One explanation can be found in the Bollywood community. A lot of people making a lot of movies only for the indian market. This leads to the creation of a neighborhood strongly connected (not in the math way) but isolated form the other community, as the hollywood one as an example.
 
+> [Interactive web page (may take a few seconds)](https://lukefleed.xyz/imdb-graph.html)
+
 ![](visualization/Screenshot.png)
