@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 from itertools import combinations
 from math import comb
+from matplotlib.pyplot import title
 import networkx as nx
 from pyvis.network import Network
 
 net = Network(height='100%', width='100%', directed=False, bgcolor='#1e1f29', font_color='white')
+
+actors_to_keep = []
+with open('data/top_actors_h.txt') as ifs:
+    for line in ifs:
+        if line.strip():
+            actor_id, _ = line.split(maxsplit=1)
+            actors_to_keep.append(int(actor_id))
+
 with open('data/Attori.txt') as ifs:
     for line in ifs:
         if line.strip():
             actor_id, actor_name = line.split(maxsplit=1)
-            net.add_node(int(actor_id), label=actor_name)
+            actor_id = int(actor_id)
+            if actor_id in actors_to_keep:
+                net.add_node(actor_id, label=actor_name)
 
 movies = {}  # {movie_id: [actor_id, ...]}
 with open('data/Relazioni.txt') as ifs:
@@ -37,7 +48,7 @@ for actor_id_1, actor_id_2 in edges:
 # net.repulsion(node_distance=500, central_gravity=0.3, spring_length=200, spring_strength=0.05, damping=0.2)
 # net.show_buttons()
 
-net.set_options(""""
+net.set_options("""
 var options = {
   "edges": {
     "color": {
@@ -47,15 +58,14 @@ var options = {
   },
   "physics": {
     "repulsion": {
-      "centralGravity": 0.25,
-      "nodeDistance": 500,
-      "damping": 0.67
+      "springLength": 1205,
+      "nodeDistance": 1190
     },
-    "maxVelocity": 48,
-    "minVelocity": 0.39,
+    "maxVelocity": 23,
+    "minVelocity": 0.75,
     "solver": "repulsion"
   }
 }
 """)
 
-net.show('imdb-graph.html')
+net.show('harmonic-graph.html')
