@@ -24,7 +24,7 @@ with open('data/Attori.txt') as ifs:
             farness = float(farness)
             if actor_id in actors_to_keep:
                 if farness in farness_to_keep:
-                  net.add_node(actor_id, label=actor_name, size =farness*50)
+                  net.add_node(actor_id, label=actor_name, size =pow(5,1.0/(farness*2)))
 
 movies = {}  # {movie_id: [actor_id, ...]}
 with open('data/Relazioni.txt') as ifs:
@@ -77,4 +77,4 @@ var options = {
 }
 """)
 
-net.show('closeness-graph.html')
+net.show('html-files/closeness-graph.html')

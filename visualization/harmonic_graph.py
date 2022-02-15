@@ -8,19 +8,23 @@ from pyvis.network import Network
 net = Network(height='100%', width='100%', directed=False, bgcolor='#1e1f29', font_color='white')
 
 actors_to_keep = []
+harmonic_to_keep =[]
 with open('data/top_actors_h.txt') as ifs:
     for line in ifs:
         if line.strip():
-            actor_id, _ = line.split(maxsplit=1)
+            actor_id, harmonic = line.split(maxsplit=1)
             actors_to_keep.append(int(actor_id))
+            harmonic_to_keep.append(float(harmonic))
 
 with open('data/Attori.txt') as ifs:
     for line in ifs:
         if line.strip():
             actor_id, actor_name = line.split(maxsplit=1)
             actor_id = int(actor_id)
+            harmonic = float(harmonic)
             if actor_id in actors_to_keep:
-                net.add_node(actor_id, label=actor_name)
+                  if harmonic in harmonic_to_keep:
+                    net.add_node(actor_id, label=actor_name, size = harmonic/350)
 
 movies = {}  # {movie_id: [actor_id, ...]}
 with open('data/Relazioni.txt') as ifs:
@@ -68,4 +72,4 @@ var options = {
 }
 """)
 
-net.show('harmonic-graph.html')
+net.show('html-files/harmonic-graph.html')
