@@ -8,19 +8,23 @@ from pyvis.network import Network
 net = Network(height='100%', width='100%', directed=False, bgcolor='#1e1f29', font_color='white')
 
 actors_to_keep = []
+farness_to_keep= []
 with open('data/top_actors_c.txt') as ifs:
     for line in ifs:
         if line.strip():
             actor_id, farness = line.split(maxsplit=1)
             actors_to_keep.append(int(actor_id))
+            farness_to_keep.append(float(farness))
 
 with open('data/Attori.txt') as ifs:
     for line in ifs:
         if line.strip():
             actor_id, actor_name = line.split(maxsplit=1)
             actor_id = int(actor_id)
+            farness = float(farness)
             if actor_id in actors_to_keep:
-                net.add_node(actor_id, label=actor_name)
+                if farness in farness_to_keep:
+                  net.add_node(actor_id, label=actor_name, size =farness*50)
 
 movies = {}  # {movie_id: [actor_id, ...]}
 with open('data/Relazioni.txt') as ifs:

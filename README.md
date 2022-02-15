@@ -17,6 +17,8 @@ On this data we define an undirected graph $G=(V,E)$ where
 
 ![](visualization/Screenshot.png)
 
+> [Interactive version here](https://lukefleed.xyz/imdb-graph) (it may take a few seconds to load)
+
 The aim of the project was to build a social network over this graph and studying its centralities.
 
 The first challenge was to filter the raw data downloaded from IMDb. One of the first (and funnier) problems was to delete all the actors that works in the Adult industry. They make a lot of movies together and this would have altered the results.
@@ -446,6 +448,7 @@ for (int bfs_film_id : A[bfs_actor_id].film_indices) {
 }
 ``` -->
 
+> [An interactive graph showing the relation between the actors with highest closeness centrality](https://lukefleed.xyz/closeness-graph.html)
 
 ---
 
@@ -468,6 +471,8 @@ $$ U_b (v) = \sigma_{d-1} + \frac{n_d}{d} + \frac{n - r - n_d}{d+1}$$
 Why this? We are at the level $d$ of our exploration, so we already know the partial sum $\sigma_{d-1}$. The worst case here in this level were we are connected to all the other nodes so we add the other two factors $\frac{n_d}{d} + \frac{n - r - n_d}{d+1}$
 
 Then the algorithm works with the same _top-k_ philosophy, just with an upper bound instead of a lower bound
+
+> [An interactive graph showing the relation between the actors with highest closeness centrality](https://lukefleed.xyz/harmonic-graph.html)
 
 ---
 
