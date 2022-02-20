@@ -196,7 +196,7 @@ vector<pair<int, double>> closeness(const size_t k) {
             for (int actor_id = start; actor_id <= MAX_ACTOR_ID; actor_id += N_THREADS) {
                 if (!A.count(actor_id)) // The actor must exist, otherwise A[actor_id] would attempt to write A, and this may produce a race condition if multiple threads do it at the same time
                     continue;
-                // if |Top| ≥ k and L[v] > Farn[Top[k]] then return Top; => We can not exploit the lower bound of our vertex to stop the loop, as we are not updating lower bounds L.
+
                 // We just compute the farness of our vertex using a BFS
                 queue<pair<int,int>> q; // FIFO of pairs (actor_index, distance from our vertex).
                 for (size_t i = 0; i < enqueued.size(); i++)

@@ -128,7 +128,7 @@ df_film.query('not isAdult and titleType in ["movie", "tvSeries", "tvMovie", "tv
 filtered_tconsts = df_film["tconst"].to_list()
 ``` -->
 
-Then we can generate the final filtered file `FilmFiltrati.txt` that has only two columns: `tconst` and `primaryName`
+Then we can generate the final filtered file `FilmFiltrati.txt` that has only two columns: `tconst` and `primaryTitle`
 
 ---
 
