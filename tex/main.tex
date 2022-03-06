@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{imakeidx}
+\usepackage{algpseudocode}
+\usepackage{hyperref}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\LL}{\mathcal{L}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\HH}{\mathcal{H}}
+\newcommand{\KK}{\mathcal{K}}
+\newcommand{\XX}{\mathcal{X}}
+\newcommand{\Zm}{\Z/m\Z}
+\newcommand{\Zn}{\Z/n\Z}
+\newcommand{\Zp}{\Z_p}
+\newcommand{\Zmn}{\Z/mn\Z}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{255,255,255}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+
+\title{Computing top-k Closeness Centrality Faster in Unweighted Graphs}
+\author{Luca Lombardo}
+\date{}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    \input{abstract.tex}
+\end{abstract}
+
+\newpage
+\tableofcontents{}
+\include{introduction.tex}
+\include{algorithm.tex}
+\include{data.tex}
+
+
+\end{document}

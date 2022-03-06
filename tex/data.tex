@@ -1,0 +1,105 @@
+\section{The IMDB Case Study}
+The algorithm shown before can be applied to any dataset on which is possibile to build a graph on. In this case we are considering tha data taken from the \emph{Internet Movie Database} (IMDB).
+
+\subsection{Data Structure}
+All the data used can be downloaded here: \url{https://datasets.imdbws.com/} \\
+
+\noindent In particolar we're interest in 3 files
+\begin{itemize}
+    \item \texttt{title.basics.tsv}
+    \item \texttt{title.principals.tsv}
+    \item \texttt{name.basics.tsv}
+\end{itemize}
+Let's have a closer look to this 3 files:
+
+\subsubsection*{title.basics.tsv.gz}
+\emph{Contains the following information for titles:}
+\begin{itemize}
+    \item \texttt{tconst} (string) - alphanumeric unique identifier of the title
+    \item \texttt{titleType} (string) – the type/format of the title (e.g. movie, short, tvseries, tvepisode, video, etc)
+    \item \texttt{primaryTitle} (string) – the more popular title / the title used by the filmmakers on promotional materials at the point of release
+    \item \texttt{originalTitle} (string) - original title, in the original language
+    \item \texttt{isAdult} (boolean) - 0: non-adult title; 1: adult title
+    \item \texttt{startYear} (YYYY) – represents the release year of a title. In the case of TV Series, it is the series start year
+    \item \texttt{endYear} (YYYY) – TV Series end year.
+    \item \texttt{runtimeMinutes} – primary runtime of the title, in minutes
+    \item \texttt{genres} (string array) – includes up to three genres associated with the title
+\end{itemize}
+
+\subsubsection*{title.principals.tsv.gz}
+\emph{Contains the principal cast/crew for titles:}
+\begin{itemize}
+    \item \texttt{tconst} (string) - alphanumeric unique identifier of the title
+    \item \texttt{ordering} (integer) – a number to uniquely identify rows for a given titleId
+    \item \texttt{nconst} (string) - alphanumeric unique identifier of the name/person
+    \item \texttt{category} (string) - the category of job that person was in
+    \item \texttt{job} (string) - the specific job title if applicable
+    \item \texttt{characters} (string) - the name of the character played if applicable
+\end{itemize}
+
+\subsubsection*{name.basics.tsv.gz}
+\emph{Contains the following information for names:}
+\begin{itemize}
+    \item \texttt{nconst} (string) - alphanumeric unique identifier of the name/person
+    \item \texttt{primaryName} (string)– name by which the person is most often credited
+    \item \texttt{birthYear} – in YYYY format
+    \item \texttt{deathYear} – in YYYY format if applicable
+    \item \texttt{primaryProfession} (array of strings)– the top-3 professions of the person
+    \item \texttt{knownForTitles} (array of tconsts) – titles the person is known for
+\end{itemize}
+
+\newpage
+\subsection{Filtering}
+
+This is a crucial section for the algorithm in this particolar case study. This raw data contains a huge amount of un-useful information that will just have a negative impact on the performance during the computation. We are going to see in detail all the modification made for each file. All this operation have been implemented using \texttt{python} and the \texttt{pandas} library.
+
+\subsubsection{name.basics.tsv}
+
+For this file we only need the following columns
+
+\begin{itemize}
+    \item \texttt{nconst}
+    \item \texttt{primaryTitle}
+    \item \texttt{primaryProfession}
+\end{itemize}
+Since all the actors starts with the string \texttt{nm0} we can remove it to clean the output. Furthermore a lot of actors/actresses do more than one job (director etc..). To avoid excluding important actors we consider all the ones that have the string \texttt{actor/actress} in their profession. In this way, both someone who is classified as \texttt{actor} or as \texttt{actor, director} is taken into consideration. \\
+
+\noindent Then we can generate the final filtered file \texttt{Attori.txt} that has only two columns: \texttt{nconst} and \texttt{primaryName}
+
+
+\subsubsection{title.basics.tsv}
+
+For this file we only need the following columns
+
+\begin{itemize}
+    \item \texttt{tconst}
+    \item \texttt{primaryTitle}
+    \item \texttt{isAdult}
+    \item \texttt{titleType}
+\end{itemize}
+Since all the movies starts with the string \texttt{t0} we can remove it to clean the output. In this case, we also want to remove all the movies for adults. This part can be optional if we are interest only in the closeness and harmonic centrality. Even if the actors and actresses of the adult industry use to make a lot of movies together, this won't alter the centrality result. As we know, an higher closeness centrality can be seen as the ability of a node to spread efficiently information in the network. Including the adult industry would lead to the creation of a very dense and isolated neighborhood. But none of those nodes will have an higher closeness centrality because they only spread information in their community. This phenomenon will be discussed more deeply in the analysis of the graph visualized. \\
+
+\noindent We can also notice that there is a lot of \emph{junk} in IMDb. To avoid dealing with un-useful data, we are considering all the non-adult movies in this whitelist
+
+\begin{itemize}
+    \item \texttt{movie}
+    \item \texttt{tvSeries}
+    \item \texttt{tvMovie}
+    \item \texttt{tvMiniSeries}
+\end{itemize}
+The reason to only consider this categories is purely to optimize the performance during the computation. On IMDb each episode is listed as a single element: to remove them without loosing the most important relations, we only consider the category \texttt{tvSeries}. This category list a TV-Series as a single element, not divided in multiple episodes. In this way we will loose some of the relations with minor actors that may appear in just a few episodes. But we will have preserved the relations between the protagonists of the show. \\
+
+\noindent Then we can generate the final filtered file \texttt{FilmFiltrati.txt} that has only two columns: \texttt{tconst} and \texttt{primaryTitle}
+
+\subsubsection{title.principals.tsv}
+
+For this file we only need the following columns
+
+\begin{itemize}
+    \item \texttt{tconst}
+    \item \texttt{nconst}
+    \item \texttt{category}
+\end{itemize}
+As before, we clean the output removing unnecessary strings. Then we create an array of unique actor ids (\texttt{nconst}) and an array of how may times they appear (\texttt{counts}). This will give us the number of movies they appear in. And here it comes the core of this filtering. \\
+
+\noindent Let's define a constant \texttt{{MINMOVIES}}. This integer is the minimum number of movies that an actor needs to have made in his carrier to be considered in this graph. The reason to do that it's purely computational. If an actor/actress has less then a reasonable number of movies made in his carrier, there is an high probability that he/she has an important role in our graph during the computation of the centralities.
