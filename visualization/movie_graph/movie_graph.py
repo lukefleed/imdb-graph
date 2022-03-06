@@ -5,33 +5,33 @@ import networkx as nx
 from pyvis.network import Network
 
 net = Network(height='100%', width='100%', directed=False, bgcolor='#1e1f29', font_color='white')
-with open('data/Attori.txt') as ifs:
+with open('data/FilmFiltrati.txt') as ifs:
     for line in ifs:
         if line.strip():
-            actor_id, actor_name = line.split(maxsplit=1)
-            net.add_node(int(actor_id), label=actor_name)
+            movie_id, movie_name = line.split(maxsplit=1)
+            net.add_node(int(movie_id), label=movie_name)
 
-movies = {}  # {movie_id: [actor_id, ...]}
+actors = {}  # {movie_id: [actor_id, ...]}
 with open('data/Relazioni.txt') as ifs:
     for line in ifs:
         if line.strip():
             movie_id, actor_id = line.split(maxsplit=1)
             actor_id = int(actor_id)
             movie_id = int(movie_id)
-            if actor_id not in net.node_ids:
+            if movie_id not in net.node_ids:
                 continue
-            if movie_id in movies:
-                movies[movie_id].append(actor_id)
+            if actor_id in actors:
+                actors[actor_id].append(movie_id)
             else:
-                movies[movie_id] = [actor_id]
+                actors[actor_id] = [movie_id]
 
 edges = set()  # set of unique tuples (actor_id, actor_id)
-for movie_id, actors in movies.items():
+for actor_id, actors in actors.items():
     actors.sort()
-    for actor_id_1, actor_id_2 in combinations(actors, 2):
-        edges.add((actor_id_1, actor_id_2))
-for actor_id_1, actor_id_2 in edges:
-    net.add_edge(actor_id_1, actor_id_2)
+    for movie_id_1, movie_id_2 in combinations(actors, 2):
+        edges.add((movie_id_1, movie_id_2))
+for movie_id_1, movie_id_2 in edges:
+    net.add_edge(movie_id_1, movie_id_2)
 
 # net.hrepulsion(node_distance=500, central_gravity=0.3, spring_length=500, spring_strength=0.05, damping=0.2)
 # net.repulsion(node_distance=500, central_gravity=0.3, spring_length=200, spring_strength=0.05, damping=0.2)
@@ -58,4 +58,4 @@ var options = {
 }
 """)
 
-net.show('imdb-graph.html')
+net.show('html-files/imdb-graph.html')
