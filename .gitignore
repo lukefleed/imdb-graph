@@ -1,7 +1,14 @@
 data/
+data_movie_graph/
+data_actor_graph
 data.vecchi/
 grafo
 .vscode/
 kenobi
 *.gz
-
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+main.fdb_latexmk
