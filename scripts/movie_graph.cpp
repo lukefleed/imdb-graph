@@ -76,7 +76,7 @@ void DataRead()
 
 void BuildGraph()
 {
-    ifstream relations("data/Relazioni.txt");
+    ifstream relations("../data/data_movie_graph/Relazioni.txt");
     string s;
     const string space = "\t";
 
@@ -213,7 +213,7 @@ vector<pair<int, double>> closeness(const size_t k) {
                     top_movies.pop_back();
                 top_movies_mutex.unlock(); // Release the ownerhsip (we are done with top_movies)
 
-                cout << film_id << " " << F[film_id].name << "\n\t\x1b[36m"CC: " << 1.0/farness "<< endl;
+                cout << film_id << " " << F[film_id].name << "\n\tCC: " << 1.0/farness << endl;
                 // top_actors_lock gets destroyed after this line, releasing the mutex
             }
         }, i));
@@ -225,7 +225,7 @@ vector<pair<int, double>> closeness(const size_t k) {
 
     ofstream output_file("../visualization/movie_graph/data/top_movies_c.txt");
     for (const auto& [film_id, farness] : top_movies) {
-        output_file << film_id << "\t" << 1.0/farness << endl;
+        output_file << film_id << "\t" << F[film_id].name << "\t" << 1.0/farness << endl;
     }
 
     return top_movies;
@@ -316,7 +316,7 @@ vector<pair<int, double>> harmonic(const size_t k) { //
 
     ofstream output_file("../visualization/movie_graph/data/top_movies_h.txt");
     for (const auto& [film_id, harmonic] : top_movies) {
-        output_file << film_id << "\t" << harmonic << endl;
+        output_file << film_id << "\t" << F[film_id].name << "\t" << harmonic << endl;
     }
 
 

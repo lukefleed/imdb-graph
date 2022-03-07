@@ -226,7 +226,7 @@ vector<pair<int, double>> closeness(const size_t k) {
 
     ofstream output_file("visualization/top_actors_c.txt");
     for (const auto& [actor_id, farness] : top_actors) {
-        output_file << actor_id << "\t" << 1.0/farness << endl;
+        output_file << actor_id << "\t" << A[actor_id].name << "\t" << 1.0/farness << endl;
     }
 
     return top_actors;
@@ -317,7 +317,7 @@ vector<pair<int, double>> harmonic(const size_t k) { //
 
     ofstream output_file("visualization/top_actors_h.txt");
     for (const auto& [actor_id, harmonic] : top_actors) {
-        output_file << actor_id << "\t" << harmonic << endl;
+        output_file << actor_id << "\t" << A[actor_id].name << "\t" << harmonic << endl;
     }
 
 
