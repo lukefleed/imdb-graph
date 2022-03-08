@@ -4,7 +4,8 @@ data_actor_graph
 data.vecchi/
 grafo
 .vscode/
-kenobi
+movie_graph
+actor_graph
 *.gz
 *.aux
 *.log
