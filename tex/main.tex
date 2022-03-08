@@ -12,6 +12,8 @@
 \usepackage{imakeidx}
 \usepackage{algpseudocode}
 \usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{qrcode}
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -26,6 +28,9 @@
 \newcommand{\Zn}{\Z/n\Z}
 \newcommand{\Zp}{\Z_p}
 \newcommand{\Zmn}{\Z/mn\Z}
+\newcommand{\s}{\vspace*{0.4 cm}}
+\newcommand{\nd}{\noindent}
+
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -53,9 +58,9 @@
 \lstset{style=mystyle}
 
 
-\title{Computing top-k Closeness Centrality Faster in Unweighted Graphs}
+\title{An exact and fast algorithm for computing top-k closeness centrality}
 \author{Luca Lombardo}
-\date{}
+\date{Univeristy of Pisa - Department of Mathematics}
 
 
 \begin{document}
@@ -70,6 +75,6 @@
 \include{introduction.tex}
 \include{algorithm.tex}
 \include{data.tex}
-
+\include{code.tex}
 
 \end{document}

@@ -75,7 +75,7 @@ void DataRead()
 
 void BuildGraph()
 {
-    ifstream relations("data/Relazioni.txt");
+    ifstream relations("../data/data_actor_graph/Relazioni.txt");
     string s;
     const string space = "\t";
 
@@ -224,7 +224,7 @@ vector<pair<int, double>> closeness(const size_t k) {
         // Waiting for all threads to finish
         thread.join();
 
-    ofstream output_file("visualization/top_actors_c.txt");
+    ofstream output_file("actor_bench/top_actors_c_70.txt");
     for (const auto& [actor_id, farness] : top_actors) {
         output_file << actor_id << "\t" << A[actor_id].name << "\t" << 1.0/farness << endl;
     }
@@ -315,7 +315,7 @@ vector<pair<int, double>> harmonic(const size_t k) { //
     for (auto& thread : threads)
         thread.join();
 
-    ofstream output_file("visualization/top_actors_h.txt");
+    ofstream output_file("actor_bench/top_actors_h_70.txt");
     for (const auto& [actor_id, harmonic] : top_actors) {
         output_file << actor_id << "\t" << A[actor_id].name << "\t" << harmonic << endl;
     }

@@ -6,7 +6,7 @@ import numpy as np
 import os
 import csv
 
-MIN_MOVIES = 42  # Only keep relations for actors that have made more than this many movies
+MIN_MOVIES = 70  # Only keep relations for actors that have made more than this many movies
 
 #-----------------DOWNLOAD .GZ FILES FROM IMDB DATABASE-----------------#
 def colored(r, g, b, text):
@@ -29,8 +29,7 @@ def download_url(url):
 
 urls = ["https://datasets.imdbws.com/name.basics.tsv.gz",
         "https://datasets.imdbws.com/title.principals.tsv.gz",
-        "https://datasets.imdbws.com/title.basics.tsv.gz",
-        "https://datasets.imdbws.com/title.ratings.tsv.gz"]
+        "https://datasets.imdbws.com/title.basics.tsv.gz"]
 
 for url in urls:
   download_url(url)

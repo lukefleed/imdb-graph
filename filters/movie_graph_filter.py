@@ -61,8 +61,8 @@ df_film = pd.merge(df_film, df_ratings, "left", on="tconst")
 del df_ratings
 df_film.query('not isAdult and titleType in ["movie", "tvSeries", "tvMovie", "tvMiniSeries"]',
               inplace=True)
-VOTES_MEAN = df_film['numVotes'].mean()
-df_film.query('numVotes > @VOTES_MEAN', inplace=True)
+VOTES = df_film['numVotes'].mean()
+df_film.query('numVotes > @VOTES', inplace=True)
 filtered_tconsts = df_film["tconst"].to_list()
 
 print("Filtering relations...")
