@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import gzip
 import requests
 import pandas as pd
@@ -6,7 +7,11 @@ import numpy as np
 import os
 import csv
 
-MIN_MOVIES = 70  # Only keep relations for actors that have made more than this many movies
+# MIN_MOVIES = 5  # Only keep relations for actors that have made more than this many movies
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--min-movies", type=int, required=True)
+args = parser.parse_args()
 
 #-----------------DOWNLOAD .GZ FILES FROM IMDB DATABASE-----------------#
 def colored(r, g, b, text):
@@ -66,7 +71,7 @@ df_relazioni = pd.read_csv(
 df_relazioni.query('(category == "actor" or category == "actress") and tconst in @filtered_tconsts', inplace=True)
 # Returns an array of unique actor ids (nconsts) and an array of how many times they appear (counts) => the number of movies they appear in
 nconsts, counts = np.unique(df_relazioni["nconst"].to_numpy(), return_counts=True)
-filtered_nconsts = nconsts[counts>=MIN_MOVIES]
+filtered_nconsts = nconsts[counts>=args.min_movies]
 df_relazioni.query("nconst in @filtered_nconsts", inplace=True)
 
 # Now select only films and actors that have at lest a relation
