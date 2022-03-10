@@ -5,7 +5,7 @@ data.vecchi/
 grafo
 .vscode/
 movie_graph
-actor_graph
+actors_graph
 *.gz
 *.aux
 *.log
