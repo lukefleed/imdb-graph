@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$(realpath "$0")")"
 
-for minmovies in 50 60 70
+for minmovies in 10 20 30 40
 do
     echo "##### STARTING FILTERING FOR MIN_MOVIES=$minmovies #####"
     cd ../../filters
