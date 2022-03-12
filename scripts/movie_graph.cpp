@@ -33,6 +33,8 @@ int MAX_MOVIE_ID = -1; // Here DataRead() puts the larges actor_id loaded from A
 
 const int N_THREADS = 12; // Number of threads to use for some functions
 
+string outputFn;
+
 void DataRead()
 {
     ifstream actors("../data/data_movie_graph/Attori.txt"); // read the file
@@ -223,7 +225,8 @@ vector<pair<int, double>> closeness(const size_t k) {
         // Waiting for all threads to finish
         thread.join();
 
-    ofstream output_file("../visualization/movie_graph/data/top_movies_c.txt");
+
+    ofstream output_file(outputFn + "_c.txt");
     for (const auto& [film_id, farness] : top_movies) {
         output_file << film_id << "\t" << F[film_id].name << "\t" << 1.0/farness << endl;
     }
@@ -314,18 +317,24 @@ vector<pair<int, double>> harmonic(const size_t k) { //
     for (auto& thread : threads)
         thread.join();
 
-    ofstream output_file("../visualization/movie_graph/data/top_movies_h.txt");
+    ofstream output_file(outputFn + "_h.txt");
     for (const auto& [film_id, harmonic] : top_movies) {
         output_file << film_id << "\t" << F[film_id].name << "\t" << harmonic << endl;
     }
-
 
     return top_movies;
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 2) {
+        cout << "Usage: " << argv[0] << " OUTPUT_FILE_NAME" << endl;
+        exit(1);
+    }
+    outputFn = argv[1];
+
+
     srand(time(NULL));
 
     DataRead();

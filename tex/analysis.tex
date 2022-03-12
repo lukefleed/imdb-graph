@@ -9,18 +9,18 @@ The first one will tell us how much more efficient the algorithm is in terms of 
 \nd The platform for the tests is \emph{a laptop}, so can not be considered precise due factors as thermal throttling. The CPU is an Intel(R) Core™ i7-8750H (6 cores, 12 threads), equipped with 16GB of DDR4 @2666 MHz RAM.
 
 \subsection{Actors graph}
-Let's take into analysis the graph were each actors is a node and two nodes are linked the if they played in a movie together. In the case, during the filtering, we created the variable \texttt{MINMOVIES}. This variable is the minimun number of movies that an actor/actress has to have done to be considered in the computation.
+Let's take into analysis the graph were each actors is a node and two nodes are linked the if they played in a movie together. In the case, during the filtering, we created the variable \texttt{MIN\textunderscore ACTORS}. This variable is the minimun number of movies that an actor/actress has to have done to be considered in the computation.
 
-Varying this variable obviously affects the algorithm, in different way. The higher this variable is, the less actors we are taking into consideration. So, with a smaller graph, we are expecting better results in terms of time execution. On the other hand, we also can expect to have less accurate results. What we are going to discuss is how much changing \texttt{MINMOVIES} affects this two factors
+Varying this variable obviously affects the algorithm, in different way. The higher this variable is, the less actors we are taking into consideration. So, with a smaller graph, we are expecting better results in terms of time execution. On the other hand, we also can expect to have less accurate results. What we are going to discuss is how much changing \texttt{MIN\textunderscore ACTORS} affects this two factors
 
 \subsubsection{Time of execution}
 
 TO DO
 
 \subsubsection{Discrepancy of the results}
-We want to analyze how truthful our results are while varying MINMOVIES. The methodology is simple: for each results (lists) we take the intersection of the two. This will return the number of elements in common. Knowing the length of the lists, we can find the number of elements not in common. \s
+We want to analyze how truthful our results are while varying \texttt{MIN\textunderscore ACTORS}. The methodology is simple: for each results (lists) we take the intersection of the two. This will return the number of elements in common. Knowing the length of the lists, we can find the number of elements not in common. \s
 
-\nd A way to see this results is with a square matrix $n \times n, ~ A = (a_{ij})$, where $n$ is the number of different values that we gave to \texttt{MINMOVIES} during the testing. In this way the $(i,j)$ position is the percentage of discrepancy between the results with \texttt{MINMOVIES} set as $i$ and $j$ \s
+\nd A way to see this results is with a square matrix $n \times n, ~ A = (a_{ij})$, where $n$ is the number of different values that we gave to \texttt{MIN\textunderscore ACTORS} during the testing. In this way the $(i,j)$ position is the percentage of discrepancy between the results with \texttt{MIN\textunderscore ACTORS} set as $i$ and $j$ \s
 
 \nd This analysis is implemented in python using the \texttt{pandas} and \texttt{numpy} libraries.
 
@@ -32,4 +32,8 @@ We want to analyze how truthful our results are while varying MINMOVIES. The met
     \includegraphics[width=13cm]{Figure_1.png}
 \end{figure}
 
-\nd As expected, the matrix is symmetrical and the elements on the diagonal are all equal to zero. We can see clearly that with a lower value of \texttt{MINMOVIES} the results are more precise. The discrepancy with \texttt{MINMOVIES=10} is 14\% while being 39\% when \texttt{MINMOVIES=70}.
+\nd As expected, the matrix is symmetrical and the elements on the diagonal are all equal to zero. We can see clearly that with a lower value of \texttt{MIN\textunderscore ACTORS} the results are more precise. The discrepancy with \texttt{MIN\textunderscore ACTORS=10} is 14\% while being 39\% when \texttt{MIN\textunderscore ACTORS=70}. \s
+
+\nd This is what we obtain confronting the top-k results when $k=100$. It's interesting to se how much the discrepancy change with different values of $k$. However, choosing a lower value for $k$ would not be useful for this type of analysis. Since we are looking at the not common elements of two lists, with a small length, we would get results biased by statistical straggling. \s
+
+\textsc{Da fare: test con con k=500 e k=1000}

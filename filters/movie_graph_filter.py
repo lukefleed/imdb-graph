@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import gzip
 import requests
 import pandas as pd
@@ -7,6 +8,12 @@ import os
 import csv
 
 #-----------------DOWNLOAD .GZ FILES FROM IMDB DATABASE-----------------#
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--votes", type=int, required=True)
+args = parser.parse_args()
+
+
 def colored(r, g, b, text):
     return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
 
@@ -33,7 +40,7 @@ urls = ["https://datasets.imdbws.com/name.basics.tsv.gz",
 for url in urls:
   download_url(url)
 
-os.makedirs("../data/data_movie_graph", exist_ok=True) # Generate (recursively) folders, ignores the comand if they already exists
+os.makedirs("../data/data_movie_graph_args", exist_ok=True) # Generate (recursively) folders, ignores the comand if they already exists
 
 #------------------------------FILTERING------------------------------#
 
@@ -61,7 +68,7 @@ df_film = pd.merge(df_film, df_ratings, "left", on="tconst")
 del df_ratings
 df_film.query('not isAdult and titleType in ["movie", "tvSeries", "tvMovie", "tvMiniSeries"]',
               inplace=True)
-VOTES = df_film['numVotes'].mean()
+VOTES = args.votes
 df_film.query('numVotes > @VOTES', inplace=True)
 filtered_tconsts = df_film["tconst"].to_list()
 
