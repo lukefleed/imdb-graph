@@ -1,0 +1,100 @@
+809488	The Godfather Saga	0.321547
+343737	The Good Shepherd	0.320989
+2356777	True Detective	0.320664
+160797	Rules of Engagement	0.320576
+110912	Pulp Fiction	0.319068
+1821694	RED 2	0.318319
+1204975	Last Vegas	0.317646
+318997	Angels in America	0.31707
+5420210	The Comeback Trail	0.316363
+429589	The Ant Bully	0.316185
+1496422	The Paperboy	0.316179
+96639	Lonesome Dove	0.315784
+2802144	Kingsman: The Secret Service	0.315587
+120885	Wag the Dog	0.315437
+1245526	RED	0.31543
+212985	Hannibal	0.315044
+117913	A Time to Kill	0.31475
+101453	Billy Bathgate	0.314522
+112864	Die Hard with a Vengeance	0.314489
+374536	Bewitched	0.314327
+206634	Children of Men	0.314242
+71562	The Godfather: Part II	0.314223
+1848902	Game Change	0.314184
+455323	Being Flynn	0.314073
+308383	The Human Stain	0.314002
+118887	Cop Land	0.313976
+8385148	Hitman's Wife's Bodyguard	0.313943
+116999	Marvin's Room	0.313892
+274558	The Hours	0.313742
+5670764	Watership Down	0.313645
+307453	Shark Tale	0.313619
+425210	Lucky Number Slevin	0.313606
+203019	Men of Honor	0.313516
+118715	The Big Lebowski	0.31347
+6823368	Glass	0.313386
+238112	Captain Corelli's Mandolin	0.313257
+481499	The Croods	0.313115
+2850386	The Croods 2: A New Age	0.313115
+118607	Amistad	0.313083
+94226	The Untouchables	0.313005
+1843866	Captain America: The Winter Soldier	0.312928
+118880	Con Air	0.312883
+285823	Once Upon a Time in Mexico	0.312857
+376591	Empire Falls	0.312818
+1661382	Grudge Match	0.312735
+120797	Pushing Tin	0.312728
+1528100	Exodus: Gods and Kings	0.31249
+8134470	The Undoing	0.312464
+130414	Merlin	0.3124
+105813	White Sands	0.312214
+5711280	Electric Dreams	0.312182
+113277	Heat	0.312131
+346491	Alexander	0.3119
+117500	The Rock	0.311874
+203009	Moulin Rouge!	0.311772
+317740	The Italian Job	0.311759
+1302006	The Irishman	0.31174
+103874	Bram Stoker's Dracula	0.311657
+1703957	Genius	0.31165
+384680	The Weather Man	0.311606
+120601	Being John Malkovich	0.311567
+368709	Elizabethtown	0.311567
+331952	The Clearing	0.311522
+146838	Any Given Sunday	0.311503
+87233	Falling in Love	0.311459
+101393	Backdraft	0.311305
+113552	Kiss of Death	0.311305
+120686	Stepmom	0.311184
+100395	Postcards from the Edge	0.311159
+112462	Batman Forever	0.31114
+110148	Interview with the Vampire: The Vampire Chronicles	0.311108
+3312830	Youth	0.311044
+117665	Sleepers	0.311012
+217869	Unbreakable	0.311006
+120824	The Shipping News	0.310987
+3319460	Lisey's Story	0.310936
+493464	Wanted	0.310847
+313542	Runaway Jury	0.310808
+5592248	The Beguiled	0.310726
+297884	Far from Heaven	0.310662
+407887	The Departed	0.310611
+1034331	Righteous Kill	0.310561
+435705	Next	0.310478
+1931533	Seven Psychopaths	0.310472
+452623	Gone Baby Gone	0.310377
+119594	Twilight	0.310339
+2126235	Collide	0.310256
+8543390	Modern Love	0.310237
+106977	The Fugitive	0.310142
+114496	Something to Talk About	0.310098
+1448755	Killer Elite	0.310085
+304328	Levity	0.309997
+264464	Catch Me If You Can	0.309921
+780511	Everybody's Fine	0.309921
+268126	Adaptation.	0.309883
+3316960	Still Alice	0.309838
+824758	The Last Station	0.309819
+372784	Batman Begins	0.309813
+1748179	Red Lights	0.309801
+3460252	The Hateful Eight	0.309794

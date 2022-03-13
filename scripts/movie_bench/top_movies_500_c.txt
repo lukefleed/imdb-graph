@@ -1,0 +1,100 @@
+130414	Merlin	0.290731
+118414	The Odyssey	0.290314
+1079959	The Color of Magic	0.285208
+809488	The Godfather Saga	0.284932
+264262	Jack and the Beanstalk: The Real Story	0.283522
+243067	In the Beginning	0.28347
+1821694	RED 2	0.283362
+96639	Lonesome Dove	0.283353
+117086	Moses	0.282953
+114508	Species	0.282642
+160797	Rules of Engagement	0.282425
+103074	Thelma & Louise	0.282058
+974554	Elegy	0.281973
+208629	Nuremberg	0.281908
+5711280	Electric Dreams	0.281757
+113483	Joseph	0.281731
+73341	The Man Who Would Be King	0.281294
+88916	Christopher Columbus	0.281196
+3312830	Youth	0.28113
+2802144	Kingsman: The Secret Service	0.281
+955411	The Ten Commandments	0.280833
+230534	Les misérables	0.280811
+481452	Nightmares & Dreamscapes: From the Stories of Stephen King	0.280571
+425210	Lucky Number Slevin	0.280481
+374536	Bewitched	0.280003
+355987	Salem's Lot	0.279969
+116828	The Last Days of Frankie the Fly	0.279847
+356443	The Bridge of San Luis Rey	0.279819
+111903	Buffalo Girls	0.279735
+105236	Reservoir Dogs	0.279662
+82353	Eyewitness	0.279658
+78836	Bear Island	0.279651
+493327	Covert One: The Hades Factor	0.279634
+178145	Joan of Arc	0.279582
+92448	Secret of the Sahara	0.279574
+99810	The Hunt for Red October	0.27943
+2814362	United Passions	0.279399
+376591	Empire Falls	0.279353
+101516	Bugsy	0.279342
+74452	The Eagle Has Landed	0.279068
+319531	I'll Sleep When I'm Dead	0.279037
+331952	The Clearing	0.279017
+206634	Children of Men	0.278924
+87175	Dreamscape	0.278868
+108956	World War II: When Lions Roared	0.278824
+75520	Jesus of Nazareth	0.278639
+3120960	Skin Traffik	0.278629
+118647	The Assignment	0.278574
+2126235	Collide	0.27857
+110891	Royal Deceit	0.27853
+107822	The Piano	0.278527
+164003	City of Ghosts	0.278508
+118499	True Women	0.278407
+318997	Angels in America	0.27839
+109890	The Getaway	0.278362
+253839	Napoléon	0.278285
+118887	Cop Land	0.278259
+120487	Weapons of Mass Distraction	0.278224
+1245526	RED	0.278213
+970179	Hugo	0.278209
+280605	Dirty Deeds	0.278055
+343737	The Good Shepherd	0.278049
+384680	The Weather Man	0.278011
+372784	Batman Begins	0.277987
+1332653	The Day of the Triffids	0.277927
+217579	Jason and the Argonauts	0.277907
+115305	Our Friends in the North	0.277895
+207036	Luck of the Draw	0.277796
+2568862	Going in Style	0.277733
+96454	Without a Clue	0.27772
+118880	Con Air	0.277663
+115195	Gulliver's Travels	0.277546
+5670764	Watership Down	0.277528
+266697	Kill Bill: Vol. 1	0.277513
+378194	Kill Bill: Vol. 2	0.277513
+13356646	Solos	0.277483
+74608	Harry and Walter Go to New York	0.277409
+116240	The Evening Star	0.277378
+368730	Frankenstein	0.277329
+861704	Emotional Arithmetic	0.27723
+116619	In Cold Blood	0.277185
+120744	The Man in the Iron Mask	0.277133
+4651448	Green Eggs and Ham	0.27709
+119314	The Horse Whisperer	0.277069
+105937	Queen	0.277053
+824758	The Last Station	0.277045
+95388	Jack the Ripper	0.277032
+975645	Hitchcock	0.277013
+108052	Schindler's List	0.276997
+462396	The Last Legion	0.276951
+122690	Ronin	0.276884
+264464	Catch Me If You Can	0.276792
+212985	Hannibal	0.276677
+101393	Backdraft	0.276614
+93044	The Fourth Protocol	0.276587
+1528100	Exodus: Gods and Kings	0.276569
+3581932	And Then There Were None	0.276508
+87852	Ordeal by Innocence	0.276472
+454848	Inside Man	0.276417
+238112	Captain Corelli's Mandolin	0.276397

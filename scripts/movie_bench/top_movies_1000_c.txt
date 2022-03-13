@@ -1,0 +1,100 @@
+130414	Merlin	0.29655
+809488	The Godfather Saga	0.292731
+118414	The Odyssey	0.29237
+1821694	RED 2	0.291352
+160797	Rules of Engagement	0.290474
+96639	Lonesome Dove	0.290184
+1079959	The Color of Magic	0.289438
+5711280	Electric Dreams	0.288528
+264262	Jack and the Beanstalk: The Real Story	0.288314
+374536	Bewitched	0.287903
+343737	The Good Shepherd	0.287862
+2802144	Kingsman: The Secret Service	0.287849
+208629	Nuremberg	0.287623
+974554	Elegy	0.287547
+206634	Children of Men	0.287487
+425210	Lucky Number Slevin	0.287324
+3312830	Youth	0.287305
+73341	The Man Who Would Be King	0.287255
+117086	Moses	0.28721
+376591	Empire Falls	0.287097
+955411	The Ten Commandments	0.287052
+331952	The Clearing	0.286621
+356443	The Bridge of San Luis Rey	0.286576
+1245526	RED	0.286438
+82353	Eyewitness	0.286167
+384680	The Weather Man	0.286124
+114508	Species	0.286114
+118880	Con Air	0.286112
+230534	Les misérables	0.285932
+372784	Batman Begins	0.285889
+118887	Cop Land	0.28572
+74452	The Eagle Has Landed	0.285675
+110912	Pulp Fiction	0.285613
+318997	Angels in America	0.285529
+5670764	Watership Down	0.285482
+113483	Joseph	0.285442
+13356646	Solos	0.285365
+481452	Nightmares & Dreamscapes: From the Stories of Stephen King	0.285235
+99810	The Hunt for Red October	0.285169
+101516	Bugsy	0.285158
+103074	Thelma & Louise	0.285111
+110891	Royal Deceit	0.284971
+2126235	Collide	0.284879
+2884286	The Spoils of Babylon	0.284813
+493327	Covert One: The Hades Factor	0.284675
+122690	Ronin	0.284601
+212985	Hannibal	0.284544
+824758	The Last Station	0.284518
+71562	The Godfather: Part II	0.284488
+2568862	Going in Style	0.284442
+118647	The Assignment	0.284391
+4651448	Green Eggs and Ham	0.284327
+1528100	Exodus: Gods and Kings	0.284211
+112864	Die Hard with a Vengeance	0.284185
+120744	The Man in the Iron Mask	0.284092
+280605	Dirty Deeds	0.284018
+1204975	Last Vegas	0.283944
+108052	Schindler's List	0.283917
+1984119	Feud: Bette and Joan	0.283917
+355987	Salem's Lot	0.283915
+2814362	United Passions	0.283883
+118499	True Women	0.283873
+285823	Once Upon a Time in Mexico	0.283822
+975645	Hitchcock	0.283801
+238112	Captain Corelli's Mandolin	0.283792
+115305	Our Friends in the North	0.283773
+87175	Dreamscape	0.28371
+78836	Bear Island	0.283666
+1661382	Grudge Match	0.283596
+101393	Backdraft	0.28356
+264464	Catch Me If You Can	0.283487
+96454	Without a Clue	0.283482
+346491	Alexander	0.283478
+861704	Emotional Arithmetic	0.283449
+116240	The Evening Star	0.28344
+2356777	True Detective	0.283428
+970179	Hugo	0.28335
+164212	Under Suspicion	0.283306
+92035	Sweet Liberty	0.283293
+482571	The Prestige	0.283283
+5420210	The Comeback Trail	0.283245
+319531	I'll Sleep When I'm Dead	0.283243
+368730	Frankenstein	0.283175
+100395	Postcards from the Edge	0.283125
+74608	Harry and Walter Go to New York	0.283096
+120885	Wag the Dog	0.283043
+454848	Inside Man	0.283039
+108122	Short Cuts	0.282999
+113277	Heat	0.282978
+164003	City of Ghosts	0.282944
+103874	Bram Stoker's Dracula	0.28294
+119314	The Horse Whisperer	0.282923
+253839	Napoléon	0.282919
+8134470	The Undoing	0.282884
+307453	Shark Tale	0.282718
+203019	Men of Honor	0.282684
+105813	White Sands	0.282649
+119594	Twilight	0.282603
+118715	The Big Lebowski	0.282559
+417001	Must Love Dogs	0.282548

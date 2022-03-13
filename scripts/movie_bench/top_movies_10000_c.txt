@@ -1,0 +1,100 @@
+2356777	True Detective	0.336567
+343737	The Good Shepherd	0.335404
+110912	Pulp Fiction	0.334537
+160797	Rules of Engagement	0.333719
+1821694	RED 2	0.33286
+318997	Angels in America	0.332159
+1204975	Last Vegas	0.332072
+274558	The Hours	0.331821
+212985	Hannibal	0.331603
+1496422	The Paperboy	0.331559
+429589	The Ant Bully	0.331494
+117913	A Time to Kill	0.331004
+101453	Billy Bathgate	0.330408
+1848902	Game Change	0.329944
+6823368	Glass	0.32989
+308383	The Human Stain	0.329879
+112864	Die Hard with a Vengeance	0.329836
+118715	The Big Lebowski	0.329664
+116999	Marvin's Room	0.329481
+96639	Lonesome Dove	0.329352
+1843866	Captain America: The Winter Soldier	0.32918
+8385148	Hitman's Wife's Bodyguard	0.329148
+455323	Being Flynn	0.329062
+120797	Pushing Tin	0.328987
+1245526	RED	0.328612
+374536	Bewitched	0.328526
+71562	The Godfather: Part II	0.328238
+112462	Batman Forever	0.328035
+120824	The Shipping News	0.327769
+120885	Wag the Dog	0.327748
+346491	Alexander	0.327695
+307453	Shark Tale	0.32762
+103874	Bram Stoker's Dracula	0.327578
+2802144	Kingsman: The Secret Service	0.327344
+1703957	Genius	0.32728
+317740	The Italian Job	0.327259
+206634	Children of Men	0.327174
+217869	Unbreakable	0.3271
+481499	The Croods	0.326973
+2850386	The Croods 2: A New Age	0.326973
+118607	Amistad	0.326888
+203009	Moulin Rouge!	0.326877
+407887	The Departed	0.326877
+94226	The Untouchables	0.326623
+5592248	The Beguiled	0.326602
+110148	Interview with the Vampire: The Vampire Chronicles	0.326571
+435705	Next	0.326465
+472062	Charlie Wilson's War	0.326233
+268126	Adaptation.	0.326222
+8134470	The Undoing	0.325896
+240772	Ocean's Eleven	0.325875
+203019	Men of Honor	0.325791
+117665	Sleepers	0.325633
+99371	Days of Thunder	0.325528
+285823	Once Upon a Time in Mexico	0.325381
+1959563	The Hitman's Bodyguard	0.325255
+219965	Bandits	0.325046
+113277	Heat	0.325025
+3920596	Big Little Lies	0.324889
+238112	Captain Corelli's Mandolin	0.324711
+118880	Con Air	0.324701
+1661382	Grudge Match	0.324701
+106977	The Fugitive	0.32469
+100395	Postcards from the Edge	0.32468
+349467	Freedomland	0.32468
+121766	Star Wars: Episode III - Revenge of the Sith	0.324648
+113552	Kiss of Death	0.324638
+120601	Being John Malkovich	0.324607
+1234548	The Men Who Stare at Goats	0.324554
+175880	Magnolia	0.324471
+1570728	Crazy, Stupid, Love.	0.324408
+120686	Stepmom	0.324356
+146838	Any Given Sunday	0.324346
+8543390	Modern Love	0.324315
+452623	Gone Baby Gone	0.324085
+405676	All the King's Men	0.324044
+297884	Far from Heaven	0.324013
+3316960	Still Alice	0.324013
+114496	Something to Talk About	0.323971
+102057	Hook	0.323929
+1528100	Exodus: Gods and Kings	0.323909
+896798	Cleaner	0.323877
+120184	Sphere	0.323857
+138946	The Yards	0.323805
+114069	Outbreak	0.323742
+120591	Armageddon	0.323722
+313542	Runaway Jury	0.323639
+1680045	360	0.323618
+380510	The Lovely Bones	0.323597
+425210	Lucky Number Slevin	0.323514
+6394270	Bombshell	0.323514
+1931435	The Big Wedding	0.323317
+1860353	Turbo	0.323276
+11286314	Don't Look Up	0.323276
+134119	The Talented Mr. Ripley	0.323203
+1931533	Seven Psychopaths	0.323172
+117500	The Rock	0.323131
+329774	xXx: State of the Union	0.323131
+87233	Falling in Love	0.32311
+4572514	Patriots Day	0.322986

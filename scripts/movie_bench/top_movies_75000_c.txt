@@ -1,0 +1,100 @@
+2356777	True Detective	0.37467
+343737	The Good Shepherd	0.372673
+240772	Ocean's Eleven	0.366756
+407887	The Departed	0.366503
+1596363	The Big Short	0.363495
+110148	Interview with the Vampire: The Vampire Chronicles	0.363445
+117665	Sleepers	0.361861
+117913	A Time to Kill	0.360633
+349903	Ocean's Twelve	0.360193
+2177771	The Monuments Men	0.359949
+118607	Amistad	0.359122
+1204975	Last Vegas	0.358589
+307453	Shark Tale	0.358443
+346491	Alexander	0.357961
+11286314	Don't Look Up	0.357623
+114214	The Quick and the Dead	0.357575
+496806	Ocean's Thirteen	0.357431
+8385148	Hitman's Wife's Bodyguard	0.35719
+472062	Charlie Wilson's War	0.356807
+134119	The Talented Mr. Ripley	0.356615
+482571	The Prestige	0.35628
+175880	Magnolia	0.355994
+765429	American Gangster	0.355613
+376541	Closer	0.355185
+120885	Wag the Dog	0.35509
+114369	Se7en	0.354853
+356910	Mr. & Mrs. Smith	0.354805
+1598778	Contagion	0.354332
+964517	The Fighter	0.354049
+1345836	The Dark Knight Rises	0.353625
+317740	The Italian Job	0.353531
+1707386	Les Misérables	0.353531
+452623	Gone Baby Gone	0.353343
+887883	Burn After Reading	0.353202
+259711	Vanilla Sky	0.353014
+1234548	The Men Who Stare at Goats	0.352826
+119217	Good Will Hunting	0.352733
+97441	Glory	0.352592
+212985	Hannibal	0.352592
+113277	Heat	0.352452
+817230	Valentine's Day	0.352312
+7131622	Once Upon a Time... In Hollywood	0.352265
+236493	The Mexican	0.352078
+6266538	Vice	0.352078
+1235522	Broken City	0.352032
+1403865	True Grit	0.351845
+1124035	The Ides of March	0.351752
+1272878	2 Guns	0.351612
+1599348	Safe House	0.351612
+457939	The Holiday	0.351519
+1959563	The Hitman's Bodyguard	0.351519
+1570728	Crazy, Stupid, Love.	0.351426
+481499	The Croods	0.351333
+876563	Ponyo	0.351101
+493464	Wanted	0.351008
+988045	Sherlock Holmes	0.350962
+918927	Doubt	0.350916
+2209764	Transcendence	0.350916
+114069	Outbreak	0.350869
+317919	Mission: Impossible III	0.350823
+473705	State of Play	0.350638
+4572514	Patriots Day	0.350638
+1483013	Oblivion	0.350407
+264464	Catch Me If You Can	0.35036
+274558	The Hours	0.350268
+1950186	Ford v Ferrari	0.350268
+103874	Bram Stoker's Dracula	0.35013
+2361509	The Intern	0.349991
+315327	Bruce Almighty	0.349899
+1210166	Moneyball	0.349623
+993846	The Wolf of Wall Street	0.349577
+1448755	Killer Elite	0.349439
+425061	Get Smart	0.349163
+5164214	Ocean's Eight	0.348934
+1454468	Gravity	0.348705
+206634	Children of Men	0.348659
+285823	Once Upon a Time in Mexico	0.348522
+110912	Pulp Fiction	0.348476
+99371	Days of Thunder	0.348476
+432283	Fantastic Mr. Fox	0.348476
+71562	The Godfather: Part II	0.348431
+1013743	Knight and Day	0.348431
+1057500	Invictus	0.348294
+1800241	American Hustle	0.348294
+458525	X-Men Origins: Wolverine	0.348202
+162650	Shaft	0.348157
+339291	A Series of Unfortunate Events	0.348157
+121766	Star Wars: Episode III - Revenge of the Sith	0.347929
+268126	Adaptation.	0.347929
+1860353	Turbo	0.347929
+181689	Minority Report	0.347883
+454848	Inside Man	0.347883
+1843866	Captain America: The Winter Soldier	0.347883
+177971	The Perfect Storm	0.347838
+970866	Little Fockers	0.347838
+203019	Men of Honor	0.347746
+790736	R.I.P.D.	0.34761
+369339	Collateral	0.347337
+289765	Red Dragon	0.347292
+396269	Wedding Crashers	0.347246
