@@ -19,5 +19,11 @@ For the actors graph we choose the subset $S$ as the actors with at least 100 mo
 \begin{figure}[H] \label{imdb-a-network}
     \centering
     \includegraphics[width=13cm]{Screenshot.png}
-    \caption{The collaboration network of the actors and actresses with more that an 100 movies on the IMDb network}
+    \caption{\emph{The collaboration network of the actors and actresses with more that an 100 movies on the IMDb network}}
 \end{figure}
+
+The results obtained is extremely interesting. We can clearly see how this graph it's characterized by different (and some times isolated) communities. The nodes in them are all actors and actresses of the same nationality. There are some very big clusters as the \emph{Bollywood}'s one that are almost isolated. Due to cultural and linguistic differences those actors never collaborated with anyone outside their country. \s
+
+A visual analysis of this graph can reflects some of the proprieties that we saw during the analysis of the results. Let's take the biggest cluster, the Bollywood one. Even if it's very dense and the nodes have a lot of links, none of them ever appeared in out top-k results during the testing. This happens due to the proprieties of closeness centrality, the one that we are taking into consideration. It can be seen as the ability of a node to transport information efficiently into the graph. But the Bollywood's nodes are efficient in transporting information only in their communities. \s
+
+A simple and heuristic way to see this phenomena is by grabbing in the interactive graph a node with an higher centrality and dragging him around. We'll see that it will drag with him every community. If we repeat the same action with a Bollywood node, it will only move the nodes of his community, leaving almost un-moved all the other nodes
