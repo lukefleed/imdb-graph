@@ -8,7 +8,7 @@ The first one will tell us how much more efficient the algorithm is in terms of 
 
 \nd The platform for the tests is \emph{a laptop}, so can not be considered precise due factors as thermal throttling. The CPU is an Intel(R) Core™ i7-8750H (6 cores, 12 threads), equipped with 16GB of DDR4 @2666 MHz RAM.
 
-\subsection{Actors graph}
+\subsection{Actors graph} \label{actors-graph}
 Let's take into analysis the graph were each actors is a node and two nodes are linked the if they played in a movie together. In the case, during the filtering, we created the variable \texttt{MIN\textunderscore ACTORS}. This variable is the minimun number of movies that an actor/actress has to have done to be considered in the computation.
 
 Varying this variable obviously affects the algorithm, in different way. The higher this variable is, the less actors we are taking into consideration. So, with a smaller graph, we are expecting better results in terms of time execution. On the other hand, we also can expect to have less accurate results. What we are going to discuss is how much changing \texttt{MIN\textunderscore ACTORS} affects this two factors
@@ -28,8 +28,9 @@ We want to analyze how truthful our results are while varying \texttt{MIN\textun
 
 \nd Visualizing this analysis we obtain this
 
-\begin{figure}[h]
-    \includegraphics[width=13cm]{Figure_1.png}
+\begin{figure}[h] \label{matrix-a}
+    \includegraphics[width=12cm]{Figure_1.png}
+    \caption{Discrepancy of the results on the actors graph in function of the minimum number of movies required to be considered as a node}
 \end{figure}
 
 \nd As expected, the matrix is symmetrical and the elements on the diagonal are all equal to zero. We can see clearly that with a lower value of \texttt{MIN\textunderscore ACTORS} the results are more precise. The discrepancy with \texttt{MIN\textunderscore ACTORS=10} is 14\% while being 39\% when \texttt{MIN\textunderscore ACTORS=70}. \s
@@ -37,3 +38,24 @@ We want to analyze how truthful our results are while varying \texttt{MIN\textun
 \nd This is what we obtain confronting the top-k results when $k=100$. It's interesting to se how much the discrepancy change with different values of $k$. However, choosing a lower value for $k$ would not be useful for this type of analysis. Since we are looking at the not common elements of two lists, with a small length, we would get results biased by statistical straggling. \s
 
 \textsc{Da fare: test con con k=500 e k=1000}
+
+\s
+\newpage
+\subsection{Movies Graphs}
+In this section we are taking into consideration the graph build over the movies and their common actors/actresses. Due to an elevated number of nodes, to optimize the performance during the execution in the section \ref{filtering} we introduced the variable \texttt{VOTES}. It represents the minimum number of votes (indifferently is positive or negative) that a movie need to have on the IMDb database to be considered as a node in our graph.
+
+As seen during the analysis of the actors graph in \ref{actors-graph}, varying this kind of variables affects the results in many ways. All the observations made before are still valid for this case, I won't repeat them for shortness. As done before (\ref{matrix-a}), we are going to use a matrix to visualize and analyze the results
+\s
+
+% \lstinputlisting[language=c++]{code/closeness_analysis_2.py}
+
+\nd Giving us:
+\begin{figure}[H] \label{matrix-b}
+    \centering
+    \includegraphics[width=13cm]{Figure_2.png}
+    \caption{Discrepancy of the results on the movie graph in function of the minimum number of votes required to be considered as a node}
+\end{figure}
+\newpage
+\lstinputlisting[language=c++]{code/closeness_analysis_2.py}
+
+\s \nd \emph{Dire qualcosa sull'analisi, ma andrebbe rifatta perché i valori non vanno bene}
