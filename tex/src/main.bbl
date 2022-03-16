@@ -1,0 +1,8 @@
+\begin{thebibliography}{1}
+
+\bibitem{DBLP:journals/corr/BergaminiBCMM17}
+E.~Bergamini, M.~Borassi, P.~Crescenzi, A.~Marino, and H.~Meyerhenke.
+\newblock Computing top-k closeness centrality faster in unweighted graphs.
+\newblock {\em CoRR}, abs/1704.01077, 2017.
+
+\end{thebibliography}
