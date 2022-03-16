@@ -2,7 +2,6 @@ data/
 data_movie_graph/
 data_actor_graph
 data.vecchi/
-grafo
 .vscode/
 movie_graph
 actors_graph
