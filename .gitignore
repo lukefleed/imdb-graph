@@ -11,4 +11,6 @@ actors_graph
 *.out
 *.toc
 *.fls
+*.bbl
+*.blg
 main.fdb_latexmk
