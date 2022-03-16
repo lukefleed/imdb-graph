@@ -1,0 +1,88 @@
+\section{An overview of the code}
+The algorithm implement is multi-threaded and written in C\texttt{++}. To avoid redundances, we'll take in exame only the \emph{Actors Graph} case.
+
+\subsection{Data structures}
+In this case we are working with two simple \texttt{struct} for the classes \emph{Film} and \emph{Actor}
+
+\lstinputlisting[language=c++]{code/struct.cpp}
+\s
+\nd Then we need two dictionaries build like this
+
+\lstinputlisting[language=c++]{code/map.cpp}
+\s
+\nd We are considering the files \texttt{Attori.txt} and \texttt{FilmFiltrati.txt}, we don't need the relations one for now. Once that we have read this two files, we loop on each one brutally filling the two dictionaries created before. If a line is empty, we skip it. We are using a try and catch approach. Even if the good practice is to use it only for a specific error, since we are outputting everything on the terminal it makes sense to \emph{catch} any error.
+
+\lstinputlisting[language=c++]{code/data.cpp}
+\s
+
+Now we can use the file \texttt{Relazioni.txt}. As before, we loop on all the elements of this file, creating the variables
+
+\begin{itemize}
+    \item \texttt{id\textunderscore film}: index key of each movie
+    \item \texttt{id\textunderscore attore}: index key of each actor
+\end{itemize}
+
+\nd If they both exists, we update the list of indices of movies that the actor/actresses played in. In the same way, we update the list of indices of actors/actresses that played in the movies with that id.
+
+\lstinputlisting[language=c++]{code/graph.cpp}
+\s
+Now that we have defined how to build this graph, we have to implement the algorithm what will return the top-k central elements. \s
+
+\nd The code can be found here: \url{https://github.com/lukefleed/imdb-graph}
+\s
+\begin{center}
+    \qrcode{https://github.com/lukefleed/imdb-graph}
+\end{center}
+
+\subsection{Results - Actors Graph}
+
+Here are the top-10 actors for closeness centrality obtained with the variable \texttt{MIN\textunderscore ACTORS=5} (as we'll see in the next section, it's the most accurate)
+
+\begin{table}[h!]
+    \centering
+     \begin{tabular}{||c c||}
+     \hline
+     Node & Closeness centrality \\ [0.5ex]
+     \hline\hline
+     Eric Roberts & 0.324895 \\
+     Christopher Lee &0.319873 \\
+     Franco Nero & 0.31946 \\
+     John Savage & 0.316258 \\
+     Michael Madsen & 0.314451 \\
+     Udo Kier & 0.31357 \\
+     Geraldine Chaplin & 0.313141 \\
+     Malcolm McDowell & 0.313014 \\
+     David Carradine & 0.312648 \\
+     Christopher Plummer & 0.311859 \\ [1ex]
+     \hline
+     \end{tabular}
+\end{table}
+
+\nd All the other results are available in the Github repository for all the values of \texttt{MIN\textunderscore ACTORS} and for $k=100$
+
+\newpage
+\subsection{Results - Movies Graph}
+
+Here are the top-10 movies for closeness centrality obtained with the variable \texttt{VOTES=500} (as we'll see in the next section, it's the most accurate)
+
+\begin{table}[h!]
+    \centering
+     \begin{tabular}{||c c||}
+     \hline
+     Node & Closeness centrality \\ [0.5ex]
+     \hline\hline
+     Merlin & 0.290731 \\
+     The Odyssey & 0.290314 \\
+     The Color of Magic	& 0.285208 \\
+     The Godfather Saga	& 0.284932 \\
+     Jack and the Beanstalk: The Real Story & 0.283522 \\
+     In the Beginning & 0.28347 \\
+     RED 2 & 0.283362 \\
+     Lonesome Dove & 0.283353 \\
+     Moses & 0.282953 \\
+     Species & 0.282642 \\ [1ex]
+     \hline
+     \end{tabular}
+\end{table}
+
+\nd All the other results are available in the Github repository for all the values of \texttt{VOTES} and for $k=100$

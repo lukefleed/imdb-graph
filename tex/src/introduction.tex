@@ -1,23 +1,23 @@
 \section{Introduction}
-A graph $G= (V,E)$ is a pair of a sets. Where $V = \{v_1,...,v_n\}$ is the set \emph{nodes}, and $E \subseteq V \times V, ~ E = \{(v_i,v_j),...\}$  is the set of \emph{edges} (with $|E| = m \leq n^2$). \s
+A graph $G= (V,E)$ is a pair of a sets. Where $V = \{v_1,...,v_n\}$ is the set of \emph{nodes}, and $E \subseteq V \times V, ~ E = \{(v_i,v_j),...\}$  is the set of \emph{edges} (with $|E| = m \leq n^2$). \s
 
-In this paper we discuss the problem of identifying the most central nodes in a network using the measure of \emph{closeness centrality}. Given a connected graph, the closeness centrality of a node $v \in V$ is defined as the reciprocal of the sum of the length of the shortest paths between the node and all other nodes in the graph. Normalizing we obtain the following formula:
+\nd In this paper we discuss the problem of identifying the most central nodes in a network using the measure of \emph{closeness centrality}. Given a connected graph, the closeness centrality of a node $v \in V$ is defined as the reciprocal of the sum of the length of the shortest paths between the node and all other nodes in the graph. Normalizing, we obtain the following formula:
 
 \begin{equation}\label{closeness}
    c(v) = \frac{n-1}{\displaystyle \sum_{w \in V} d(v,w)}
 \end{equation}
 
-where $n$ is the cardinality of $V$ and $d(v,w)$ is the distance between $v,w \in V$. This is a very powerful tool for the analysis of a network: it ranks each node telling us the most efficient ones in spreading information through all the other nodes in the graph. As mentioned before, the denominator of this definition give us the length of the shortest path between two nodes. This means that for a node to be central, the average number of links needed to reach another node has to be low. The goal of this paper is to computer the $k$ vertices with the higher closeness centrality. \s
+\nd where $n$ is the cardinality of $V$ and $d(v,w)$ is the distance between $v,w \in V$. This is a very powerful tool for the analysis of a network: it ranks each node telling us the most efficient ones in spreading information through all the other nodes in the graph. As mentioned before, the denominator of this definition give us the length of the shortest path between two nodes. This means that for a node to be central, the average number of links needed to reach another node has to be low. The goal of this paper is to computer the $k$ vertices with the higher closeness centrality. \s
 
 \noindent As case study we are using the collaboration network in the \emph{Internet Movie Database} (IMDB).  We are going to consider two different graphs. For the first one we define an undirected graph $G=(V,E)$ where
 \begin{itemize}
-    \item the vertex $V$ are the actor and the actress
-    \item the non oriented edges in $E$ links the actors and the actresses if they played together in a movie.
+    \item The vertices $V$ are the actor and the actress
+    \item The non oriented edges in $E$ links the actors and the actresses if they played together in a movie.
 \end{itemize}
 For the second one we do the opposite thing: we define an undirected graph $G=(V,E)$ where
 \begin{itemize}
     \item the vertices $V$ are the movies
-    \item the non oriented edges in $E$ links two movies if they have an actor or actress in common
+    \item the non oriented edges in $E$ links two movies if they have an actor or actress in common.
 \end{itemize}
 
 \subsection{The Problem}

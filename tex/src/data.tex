@@ -62,7 +62,7 @@ Let's have a closer look to this 4 files:
 
 This is a crucial section for the algorithm in this particolar case study. This raw data contains a huge amount of un-useful information that will just have a negative impact on the performance during the computation. We are going to see in detail all the modification made for each file. All this operation have been implemented using \texttt{python} and the \texttt{pandas} library. \s
 
-Since we want to build two different graph, some consideration will have to be considered for the specific case. If nothing is told it means that the filtering of that file is the same for both graphs.
+\nd Since we want to build two different graph, some consideration will have to be made for the specific case. If nothing is told it means that the filtering of that file is the same for both graphs.
 
 \subsubsection{name.basics.tsv}
 
@@ -98,7 +98,7 @@ Since all the movies starts with the string \texttt{t0} we can remove it to clea
     \item \texttt{tvMovie}
     \item \texttt{tvMiniSeries}
 \end{itemize}
-The reason to only consider this categories is purely to optimize the performance during the computation. On IMDb each episode is listed as a single element: to remove them without loosing the most important relations, we only consider the category \texttt{tvSeries}. This category list a TV-Series as a single element, not divided in multiple episodes. In this way we will loose some of the relations with minor actors that may appear in just a few episodes. But we will have preserved the relations between the protagonists of the show. \s
+The reason to only consider this categories is purely to optimize the performance during the computation. On IMDb each episode is listed as a single element: to remove them without loosing the most important relations, we only consider the category \texttt{tvSeries}. This category lists a TV-Series as a single element, not divided in multiple episodes. In this way we will loose some of the relations with minor actors that may appear in just a few episodes. But we will have preserved the relations between the protagonists of the show. \s
 
 \noindent Then we can generate the final filtered file \texttt{FilmFiltrati.txt} that has only two columns: \texttt{tconst} and \texttt{primaryTitle}
 
@@ -121,7 +121,7 @@ This file is needed for the analysis of both graphs, but there some different ob
 
 \textsc{Movies Graph} \s
 
-\noindent For this graph we don't need any optimization on this file. We just clean clean the output and leave the rest as it is \s
+\noindent For this graph we don't need any optimization on this file. We just clean clean the output and leave the rest as it is. \s
 
 \nd At the end, for both graph, we can finally generate the file \texttt{Relazioni.txt} containing the columns \texttt{tconst} and \texttt{nconst}
 
@@ -134,6 +134,6 @@ This file is necessary just in the analysis of the movie graph, it won't be even
     \item \texttt{numVotes}
 \end{itemize}
 
-\nd The idea behind the optimization made in this file is the same that we have used before with the \texttt{MINMOVIES} technique. We want to avoid computing movies that are not central with an high probability. To do that we consider the number of votes that each movies has received on the IMDB website. To do that we introduce the constant \texttt{VOTES}, considering only the movies with an higher number of votes.During the analysis we will change this value to see how it effects the list of the top-k most central movies. \s
+\nd The idea behind the optimization made in this file is the same that we have used before with the \texttt{MINMOVIES} technique. We want to avoid computing movies that are not central with an high probability. To do that we consider the number of votes that each movie has received on the IMDB website. To do that we introduce the constant \texttt{VOTES}, considering only the movies with an higher number of votes. During the analysis we will change this value to see how it effects the list of the top-k most central movies. \s
 
 \nd In this case we don't have to generate a new file, we can apply this condition to \texttt{FilmFiltrati.txt}
