@@ -16,13 +16,15 @@ For the actors graph, we take the subset $S$ as the actors and actresses with at
     \s \nd \qrcode{https://lukefleed.xyz/imdb-graph.html}
 \end{center}
 
-\begin{figure}[H] \label{imdb-a-network}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=13cm]{Screenshot.png}
+    \includegraphics[width=12cm]{Screenshot.png}
     \caption{\emph{The collaboration network of the actors and actresses with more that an 100 movies on the IMDb network}}
+    \label{fig:imdb-a-network}
+
 \end{figure}
 
-The result obtained is extremely interesting. We can clearly see how this graph it's characterized by different (and some times isolated) communities. The nodes in them are all actors and actresses of the same nationality. There are some very big clusters as the \emph{Bollywood}'s one that are almost isolated. Due to cultural and linguistic differences those actors never collaborated with anyone outside their country. \s
+The result obtained is extremely interesting as shown in \ref{fig:imdb-a-network}. We can clearly see how this graph it's characterized by different (and some times isolated) communities. The nodes in them are all actors and actresses of the same nationality. There are some very big clusters as the \emph{Bollywood}'s one that are almost isolated. Due to cultural and linguistic differences those actors never collaborated with anyone outside their country. \s
 
 A visual analysis of this graph can reflects some of the proprieties that we saw during the analysis of the results. Let's take the biggest cluster, the Bollywood one. Even if it's very dense and the nodes have a lot of links, none of them ever appeared in out top-k results during the testing. This happens due to the proprieties of closeness centrality, the one that we are taking into consideration. It can be seen as the ability of a node to transport information efficiently into the graph. But the Bollywood's nodes are efficient in transporting information only in their communities since they don't collaborate with nodes of other clusters. \s
 
@@ -39,12 +41,13 @@ The methodology used for this graph is basically the same of \ref{actors-graph-v
 
 \s
 
-\begin{figure}[H] \label{imdb-m-network}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=13cm]{movie-graph.png}
+    \includegraphics[width=12cm]{movie-graph.png}
     \caption{\emph{The network of the movies with more that an 500 votes on the IMDb database}}
+    \label{fig:imdb-m-network}
 \end{figure}
 
-Even if at a first sight it may seem completely different from the previous one, it is not. As we can see, there are no evident communities. But some areas are more dense than other. If we zoom in in one of those areas we can see that the movies are often related. If there is a saga of popular movies, they will be very close in this graph. It's easy to find some big neighborhoods as the MCU (Marvel Cinematic Universe) one. \s
+Even if at a first sight the graph in \ref{fig:imdb-m-network} may seem completely different from the previous one, it is not. As we can see, there are no evident communities. But some areas are more dense than other. If we zoom in in one of those areas we can see that the movies are often related. If there is a saga of popular movies, they will be very close in this graph. It's easy to find some big neighborhoods such as the MCU (Marvel Cinematic Universe) one. \s
 
 \nd Since we are considering about the top thousand most popular nodes, those movies are mostly from the Hollywood scene. So it makes sense that there are not isolated clusters.

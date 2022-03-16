@@ -22,9 +22,10 @@ In this section we are going to analyze the performance of the algorithm in func
     \centering
     \includegraphics[width=12cm]{actors_time.png}
     \caption{\emph{CPU time} in relation to the \texttt{MIN\textunderscore ACTORS} variable}
+    \label{fig:actors_time}
 \end{figure}
 
-\nd In the analysis it's only taken into consideration the \emph{CPU time} (divided by the number of threads). However, \emph{system time} is in the order of a few minutes in the worst case.
+\nd In figure \ref{fig:actors_time} it's only taken into consideration the \emph{CPU time} (divided by the number of threads). However, \emph{system time} is in the order of a few minutes in the worst case.
 
 
 
@@ -37,19 +38,20 @@ We want to analyze how truthful our results are while varying \texttt{MIN\textun
 
 \lstinputlisting[language=c++]{code/closeness_analysis.py}
 
-\nd Visualizing it we obtain this
+\nd Visualizing it we obtain the matrix \ref{fig:matrix-a}
 
-\begin{figure}[h!] \label{matrix-a}
+\begin{figure}[h!]
     \centering
     \includegraphics[width=11.5cm]{Figure_1.png}
     \caption{Discrepancy of the results on the actors graph in function of the minimum number of movies required to be considered as a node}
+    \label{fig:matrix-a}
 \end{figure}
 
-\nd As expected, the matrix is symmetrical and the elements on the diagonal are all equal to zero. We can see clearly that with a lower value of \texttt{MIN\textunderscore ACTORS} the results are more precise. The discrepancy with \texttt{MIN\textunderscore ACTORS=10} is 14\% while being 39\% when \texttt{MIN\textunderscore ACTORS=70}. \s
+\nd As expected, the matrix \ref{fig:matrix-a} is symmetrical and the elements on the diagonal are all equal to zero. We can see clearly that with a lower value of \texttt{MIN\textunderscore ACTORS} the results are more precise. The discrepancy with \texttt{MIN\textunderscore ACTORS=10} is 14\% while being 39\% when \texttt{MIN\textunderscore ACTORS=70}. \s
 
 \nd This is what we obtain confronting the top-k results when $k=100$. It's interesting to se how much the discrepancy changes with different values of $k$. However, choosing a lower value for $k$ would not be useful for this type of analysis. Since we are looking at the not common elements of two lists, with a small length, we would get results biased by statistical straggling. \s
 
-\textsc{Da fare: test con k=500 e k=1000}
+\textsc{Per fare i test con altri valori di k ho bisogno di un server. Da decidere}
 
 \s
 \newpage
@@ -60,12 +62,13 @@ As seen during the analysis of the actors graph in \ref{actors-graph}, varying t
 
 \subsubsection{Time of execution}
 
-As seen in \ref{time-actors} we are going to analyze the performance of the algorithm in function of different values of \texttt{VOTES}. Low values of this variable will lead to and exponential growth of the cardinality of the nodes and edges set cardinality. And as we know, with a bigger graph there are more operations to do.
+As seen in \ref{time-actors} we are going to analyze the performance of the algorithm in function of different values of \texttt{VOTES}. Low values of this variable will lead to and exponential growth of the cardinality of the nodes and edges set cardinality. And as we know, with a bigger graph there are more operations to do. The results are shown in figure \ref{fig:moves_time}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=12cm]{movies_time.png}
     \caption{\emph{CPU time} in relation to the \texttt{VOTES} variable}
+    \label{fig:moves_time}
 \end{figure}
 
 \newpage
@@ -73,16 +76,17 @@ As seen in \ref{time-actors} we are going to analyze the performance of the algo
 
 \subsubsection{Discrepancy of the results}
 
-All the observations made before are still valid for this case, I won't repeat them for shortness. As done before (\ref{matrix-a}), we are going to use a matrix to visualize and analyze the results
+All the observations made before are still valid for this case, I won't repeat them for shortness. As done before (\ref{fig:matrix-a}), we are going to use a matrix to visualize and analyze the results
 \s
 
 % \lstinputlisting[language=c++]{code/closeness_analysis_2.py}
 
-\nd Giving us:
-\begin{figure}[H] \label{matrix-b}
+\nd Giving us the matrix in figure \ref{fig:matrix-b}:
+\begin{figure}[H]
     \centering
     \includegraphics[width=13cm]{Figure_2.png}
     \caption{Discrepancy of the results on the movie graph in function of the minimum number of votes required to be considered as a node}
+    \label{fig:matrix-b}
 \end{figure}
 \newpage
 \lstinputlisting[language=c++]{code/closeness_analysis_2.py}
