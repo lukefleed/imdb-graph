@@ -10,7 +10,7 @@ where $c(v)$ is the closeness centrality defined in \eqref{closeness}. Since we 
 \begin{equation}\label{wrong-farness}
     f(v) = \frac{1}{c(v)} = \frac{1}{r(v)-1} \displaystyle \sum_{w \in V} d(v,w)
 \end{equation}
-where $r(v) = |R(v)|$ is the cardinality of the set of reachable nodes from $v$. To avoid any problem during the computation, this formula still needs to be modified. Let's assume that the node $v$ that we are considering has just one link at distance $1$ with another node $w$ with \emph{out-degree} 0. If we consider the formula \eqref{wrong-farness} we will get a false result: $v$ would appear to be very central, even if it's obviously very peripheral. To avoid this problem, we can generalize the formula \eqref{wrong-farness} normalizing as suggested in \texttt{[Lin 1976; Wasserman and Faust 1994; Boldi and Vigna 2013; 2014; Olsen et al. 2014]}
+where $r(v) = |R(v)|$ is the cardinality of the set of reachable nodes from $v$. To avoid any problem during the computation, this formula still needs to be modified. Let's assume that the node $v$ that we are considering has just one link at distance $1$ with another node $w$ with \emph{out-degree} 0. If we consider the formula \eqref{wrong-farness} we will get a false result: $v$ would appear to be very central, even if it's obviously very peripheral. To avoid this problem, we can generalize the formula \eqref{wrong-farness} normalizing as suggested in \cite{wasserman_faust_1994,doi:10.1080/15427951.2013.865686, olsen2014upoa}
 
 \begin{equation}\label{farness}
     f(v) = \frac{n-1}{(r(v)-1)^2} \sum_{w \in R(v)} d(v,w)
