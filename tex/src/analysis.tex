@@ -9,9 +9,9 @@ The first one will tell us how much more efficient the algorithm is in terms of 
 \nd The platform for the tests is \emph{a laptop}, so can not be considered precise due factors as thermal throttling. The CPU is an Intel(R) Core™ i7-8750H (6 cores, 12 threads), equipped with 16GB of DDR4 @2666 MHz RAM.
 
 \subsection{Actors graph} \label{actors-graph}
-Let's take into analysis the graph were each actors is a node and two nodes are linked the if they played in a movie together. In the case, during the filtering, we created the variable \texttt{MIN\textunderscore ACTORS}. This variable is the minimun number of movies that an actor/actress has to have done to be considered in the computation.
+Let's take into analysis the graph were each actors is a node and two nodes are linked the if they played in a movie together. In this case, during the filtering, we created the variable \texttt{MIN\textunderscore ACTORS}. This variable is the minimun number of movies that an actor/actress has to have done to be considered in the computation. \s
 
-Varying this variable obviously affects the algorithm, in different ways. The higher this variable is, the less actors we are taking into consideration. So, with a smaller graph, we are expecting better results in terms of time execution. On the other hand, we also can expect to have less accurate results. What we are going to discuss is how much changing \texttt{MIN\textunderscore ACTORS} affects this two factors
+\nd Varying this variable obviously affects the algorithm, in different ways. The higher this variable is, the less actors we are taking into consideration. So, with a smaller graph, we are expecting better results in terms of time execution. On the other hand, we also can expect to have less accurate results. What we are going to discuss is how much changing \texttt{MIN\textunderscore ACTORS} affects this two factors.
 
 \subsubsection{Time of execution} \label{time-actors}
 
@@ -27,18 +27,39 @@ In this section we are going to analyze the performance of the algorithm in func
 
 \nd In figure \ref{fig:actors_time} it's only taken into consideration the \emph{CPU time} (divided by the number of threads). However, \emph{system time} is in the order of a few minutes in the worst case.
 
+\subsubsection{Variation of the nodes and edges cardinality}
 
+Let's analyze how much this filtering effects our data. While varying the variable for the filtering, we are changing the condition for a node to be considered or not.
+
+\begin{table}[h!]
+    \centering
+     \begin{tabular}{||c c c||}
+     \hline
+     \texttt{MIN\textunderscore ACTORS} & Number of nodes & Number of Edges \\ [0.5ex]
+     \hline\hline
+     1 & 923109 & 3202679 \\
+     5 & 126771 & 1949325 \\
+     15 & 37955 & 1251717 \\
+     20 & 26337 & 1056544 \\
+     31 & 13632 & 748580 \\
+     42 & 7921 & 545848 \\ [1ex]
+     \hline
+     \end{tabular}
+    \label{table:actors}
+\end{table}
+
+\nd In \ref{table:actors} we can the exponential growth of both nodes and edges cardinality with lower values of \texttt{MIN\textunderscore ACTORS}. This explains clearly the results obtain in \ref{time-actors}
 
 \subsubsection{Discrepancy of the results}
 We want to analyze how truthful our results are while varying \texttt{MIN\textunderscore ACTORS}. The methodology is simple: for each results (lists) we take the intersection of the two. This will return the number of elements in common. Knowing the length of the lists, we can find the number of elements not in common. \s
 
 \nd A way to see this results is with a square matrix $n \times n, ~ A = (a_{ij})$, where $n$ is the number of different values that we gave to \texttt{MIN\textunderscore ACTORS} during the testing. In this way the $(i,j)$ position is the percentage of discrepancy between the results with \texttt{MIN\textunderscore ACTORS} set as $i$ and $j$ \s
-\newpage
+
 \nd This analysis is implemented in python using the \texttt{pandas} and \texttt{numpy} libraries.
 
 \lstinputlisting[language=c++]{code/closeness_analysis.py}
 
-\nd Visualizing it we obtain the matrix \ref{fig:matrix-a}
+\nd Visualizing it we obtain the matrix in figure \ref{fig:matrix-a}. As expected, it is symmetrical and the elements on the diagonal are all equal to zero. We can see clearly that with a lower value of \texttt{MIN\textunderscore ACTORS} the results are more precise. The discrepancy with \texttt{MIN\textunderscore ACTORS=10} is 14\% while being 39\% when \texttt{MIN\textunderscore ACTORS=70}.
 
 \begin{figure}[h!]
     \centering
@@ -46,12 +67,8 @@ We want to analyze how truthful our results are while varying \texttt{MIN\textun
     \caption{Discrepancy of the results on the actors graph in function of the minimum number of movies required to be considered as a node}
     \label{fig:matrix-a}
 \end{figure}
-
-\nd As expected, the matrix \ref{fig:matrix-a} is symmetrical and the elements on the diagonal are all equal to zero. We can see clearly that with a lower value of \texttt{MIN\textunderscore ACTORS} the results are more precise. The discrepancy with \texttt{MIN\textunderscore ACTORS=10} is 14\% while being 39\% when \texttt{MIN\textunderscore ACTORS=70}. \s
-
-\nd This is what we obtain confronting the top-k results when $k=100$. It's interesting to se how much the discrepancy changes with different values of $k$. However, choosing a lower value for $k$ would not be useful for this type of analysis. Since we are looking at the not common elements of two lists, with a small length, we would get results biased by statistical straggling. \s
-
-\textsc{Per fare i test con altri valori di k ho bisogno di un server. Da decidere}
+\s
+\nd This is what we obtain confronting the top-k results when $k=100$. It cloud be interesting to see how much the discrepancy changes with different values of $k$. However, choosing a lower value for $k$ would not be useful for this type of analysis. Since we are looking at the not common elements of two lists, with a small length, we would get results biased by statistical straggling. \s
 
 \s
 \newpage

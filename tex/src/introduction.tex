@@ -7,16 +7,16 @@ A graph $G= (V,E)$ is a pair of a sets. Where $V = \{v_1,...,v_n\}$ is the set o
    c(v) = \frac{n-1}{\displaystyle \sum_{w \in V} d(v,w)}
 \end{equation}
 
-\nd where $n$ is the cardinality of $V$ and $d(v,w)$ is the distance between $v,w \in V$. This is a very powerful tool for the analysis of a network: it ranks each node telling us the most efficient ones in spreading information through all the other nodes in the graph. As mentioned before, the denominator of this definition give us the length of the shortest path between two nodes. This means that for a node to be central, the average number of links needed to reach another node has to be low. The goal of this paper is to computer the $k$ vertices with the higher closeness centrality. \s
+\nd where $n$ is the cardinality of $V$ and $d(v,w)$ is the distance between $v,w \in V$. This is a very powerful tool for the analysis of a network: it ranks each node telling us the most efficient ones in spreading information through all the other nodes in the graph. As mentioned before, the denominator of this definition give us the length of the shortest path between two nodes. This means that for a node to be central, the average number of links needed to reach another node has to be low. The goal of this paper is to computer the $k$ nodes with the higher closeness centrality. \s
 
 \noindent As case study we are using the collaboration network in the \emph{Internet Movie Database} (IMDB).  We are going to consider two different graphs. For the first one we define an undirected graph $G=(V,E)$ where
 \begin{itemize}
-    \item The vertices $V$ are the actor and the actress
-    \item The non oriented edges in $E$ links the actors and the actresses if they played together in a movie.
+    \item The nodes $V$ are the actors and the actress
+    \item The non oriented edges in $E$ links two nodes if they played together in a movie.
 \end{itemize}
 For the second one we do the opposite thing: we define an undirected graph $G=(V,E)$ where
 \begin{itemize}
-    \item the vertices $V$ are the movies
+    \item the nodes $V$ are the movies
     \item the non oriented edges in $E$ links two movies if they have an actor or actress in common.
 \end{itemize}
 
@@ -27,6 +27,6 @@ Since we are dealing with a web-scale network any brute force algorithm would re
 
 \noindent We can solve the APSP problem either using the fast matrix multiplication or, as made in this paper, implementing a breath-first-search (BFS) method. There are several reason to prefer this second approach over the first one in this type of problems. \s
 
-\noindent A graph is a data structure and we can describe it in different ways. Choosing one over another can have an enormous impact on performance. In this case, we need to remember the type of graph that we are dealing with: a very big and sparse one. The fast matrix multiplication implement the graph as an $n\times n$ matrix where the position $(i,j)$ is zero if the nodes $i,j$ are not linked, 1 (or a generic number if weighted) otherwise. This method requires $O(n^2)$ space in memory, that is an enormous quantity on a web-scale graph. Furthermore the time complexity is $O(n^{2.373} \log n)\}$ \texttt{[Zwick 2002; Williams 2012]}  \s
+\noindent A graph is a data structure and we can describe it in different ways. Choosing one over another can have an enormous impact on performance. In this case, we need to remember the type of graph that we are dealing with: a very big and sparse one. The fast matrix multiplication implement the graph as an $n\times n$ matrix where the position $(i,j)$ is zero if the nodes $i,j$ are not linked, 1 (or a generic number if weighted) otherwise. This method requires $O(n^2)$ space in memory. That is an enormous quantity on a web-scale graph. Furthermore the time complexity is $O(n^{2.373} \log n)\}$ \texttt{[Zwick 2002; Williams 2012]}  \s
 
-\noindent Using the BFS method the space complexity is $O(n+m)$, which is a very lower value compared to the previous method. In terms of time, the complexity is $O(nm)$. Unfortunately, this is not enough to compute all the distances in a reasonable time. It is also been proven that this method can not be improved. In this paper I propose an exact algorithm to compute the top-$k$ nodes with the higher closeness centrality.
+\noindent Using the BFS method the space complexity is $O(n+m)$, which is a very lower value compared to the previous method. In terms of time, the complexity is $O(nm)$. Unfortunately, this is not enough to compute all the distances in a reasonable time. It has also been proven that this method can not be improved. In this paper I propose an exact algorithm to compute the top-$k$ nodes with the higher closeness centrality.
