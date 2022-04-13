@@ -49,12 +49,12 @@ Let's analyze how much this filtering effects our data. While varying the variab
     \label{table:actors}
 \end{table}
 
-\nd In \ref{table:actors} we can the exponential growth of both nodes and edges cardinality with lower values of \texttt{MIN\textunderscore ACTORS}. This explains clearly the results obtain in \ref{time-actors}
+\nd In \ref{table:actors} we can see the exponential growth of both nodes and edges cardinality with lower values of \texttt{MIN\textunderscore ACTORS}. This explains clearly the results obtain in \ref{time-actors}
 
 \subsubsection{Discrepancy of the results}
-We want to analyze how truthful our results are while varying \texttt{MIN\textunderscore ACTORS}. The methodology is simple: for each results (lists) we take the intersection of the two. This will return the number of elements in common. Knowing the length of the lists, we can find the number of elements not in common. \s
+We want to analyze how truthful our results are while varying \texttt{MIN\textunderscore ACTORS}. The methodology is simple: for each couple of results (lists) we take the intersection of the two. This will return the number of elements in common. Knowing the length of the lists, we can find the number of elements not in common. \s
 
-\nd A way to see this results is with a square matrix $n \times n, ~ A = (a_{ij})$, where $n$ is the number of different values that we gave to \texttt{MIN\textunderscore ACTORS} during the testing. In this way the $(i,j)$ position is the percentage of discrepancy between the results with \texttt{MIN\textunderscore ACTORS} set as $i$ and $j$ \s
+\nd An easy way to visualize this results is with a square matrix $n \times n, ~ A = (a_{ij})$, where $n$ is the number of different values that we gave to \texttt{MIN\textunderscore ACTORS} during the testing. In this way the $(i,j)$ position is the percentage of discrepancy between the results with \texttt{MIN\textunderscore ACTORS} set as $i$ and $j$ \s
 
 \nd This analysis is implemented in python using the \texttt{pandas} and \texttt{numpy} libraries.
 
@@ -94,7 +94,7 @@ As seen in \ref{time-actors} we are going to analyze the performance of the algo
 
 \subsubsection{Discrepancy of the results}
 
-All the observations made before are still valid for this case, I won't repeat them for shortness. As done before (\ref{fig:matrix-a}), we are going to use a matrix to visualize and analyze the results
+All the observations made before are still valid for this case, I won't repeat them for shortness. As done before (\ref{fig:matrix-a}), we are going to use a matrix to visualize and analyze the results.
 \s
 
 % \lstinputlisting[language=c++]{code/closeness_analysis_2.py}

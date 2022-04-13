@@ -14,7 +14,7 @@ The algorithm shown in this paper is very versatile. We have tested it with two 
     h(v) \leq U_B (v) \leq h(w)
 \end{equation}
 
-\nd A possibile lower bound can be taken considering the worst case that could happen at each state
+\nd A possibile upper bound can be taken considering the worst case that could happen at each state
 
 \begin{equation}
     U_b (v) = \sigma_{d-1} + \frac{n_d}{d} + \frac{n - r - n_d}{d+1}
@@ -22,4 +22,4 @@ The algorithm shown in this paper is very versatile. We have tested it with two 
 
 \nd When we are at the level $d$ of our exploration, we already know the partial sum $\sigma_{d-1}$. The worst case in this level happens when the node $v$ is connected to all the other nodes. To consider this possibility we add the factors $\frac{n_d}{d} + \frac{n - r - n_d}{d+1}$.
 
-\s \nd This method has been tested and works with excellent results. What needs to be adjusted is a formal normalization for the harmonic centrality and for the upper bound. In the Github repository, the script already gives the possibility to compute the top-k harmonic centrality of both graphs
+\s \nd This method has been tested and works with excellent results. What needs to be adjusted is a formal normalization for the harmonic centrality and for the upper bound. In the Github repository, the script already gives the possibility to compute the top-k harmonic centrality of both graphs.
