@@ -37,20 +37,43 @@ During the computation of the farness, for each node, we have to compute the dis
 
 \textsc{Scrivere pseudocodice}
 
+\begin{algorithm}
+    \caption{The lower bound technique}\label{alg:lowerbound-technique}
+    \begin{algorithmic}
 
-% \begin{algorithmic}[H] \caption{How to write algorithms}
-%     \KwIn{A graph $G = (V,E)$}
-%     \KwOut{Top-$k$ nodes with higher closeness centrality and their value} \
-%     \
+    \Require A graph $G = (V,E)$
+    \Ensure A list of the top-$k$ nodes with higher closeness centrality
 
-%     \While{not at end of this document}{
-%      read current\;
-%      \eIf{understand}{
-%       go to next section\;
-%       current section becomes this one\;
-%       }{
-%       go back to the beginning of current section\;
-%      }
-%     }
+    \State global \texttt{Top}$\gets [~]$;
+    \State global \texttt{enqueued}, \texttt{Q};
 
-%    \end{algorithmic}
+    \For{$v \in V$}
+          \State \texttt{enqueued[i] = false;}
+    \EndFor
+
+    \While{\texttt{Q} \emph{is not empty}}
+
+        \State \texttt{Q.pop} \Comment{Extract first element of the queue};
+        \State Set the lower-bound;
+
+        \If{\texttt{|Top|> k} \emph{and} \texttt{Top[k] $\leq$ lower-bound}}
+            \State \texttt{Skip = True}; \Comment{Stop the BFS}
+
+        \Else 
+            \State Compute the farness; \Comment{BFS reached the end}
+            \State \texttt{Top.pop\textunderscore back}; \Comment{Remove the last element}
+            \State Add the new node, in order of farness;
+            \State update \texttt{Q, enqueued};
+        \EndIf
+
+    \EndWhile
+
+
+
+
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\nd In Algorithm \ref*{alg:lowerbound-technique} we use a list \texttt{Top} containing the top analyzed (yet) nodes in increasing order of farness. Then we need a vector of booleans \texttt{enqueued} to see which nodes we put in the queue during the BFS. During the BFS we need a "FIFO" priority queue \texttt{Q}. All the technical details are left to the reader in the GitHub repository.
