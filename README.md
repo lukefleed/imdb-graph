@@ -113,5 +113,4 @@ Attention! If we are visualizing the actors graph, it's important to copy the fi
 
 - [ ] Organize all the code using `OOP`
 - [ ] Normalize the harmonic centrality and it's bound
-- [ ] Test with other collaboration networks
 - [ ] Give `k` as input parameter
