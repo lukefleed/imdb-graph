@@ -1,4 +1,4 @@
-// g++ -Wall -pedantic -std=c++17 -Ofast -pthread kenobi.cpp -o kenobi
+// g++ -Wall -pedantic -std=c++17 -Ofast -pthread actors_graph.cpp -o actors_graph
 #include <iostream>
 #include <iomanip>
 #include <vector>

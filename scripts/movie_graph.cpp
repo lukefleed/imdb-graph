@@ -325,7 +325,6 @@ vector<pair<int, double>> harmonic(const size_t k) { //
     return top_movies;
 }
 
-
 int main(int argc, char* argv[])
 {
     if (argc != 2) {
@@ -345,7 +344,7 @@ int main(int argc, char* argv[])
 
     // ------------------------------------------------------------- //
 
-    // FUNZIONE CERCA FILM
+    // MOVIE SEARCH FUNCTION (work in progress)
 
     // cout << "Cerca film: ";
     // string titolo;
@@ -359,7 +358,7 @@ int main(int argc, char* argv[])
     // }
     // cout << endl;
 
-    // // FUNZIONE CERCA ATTORE
+    // // ACTOR SEARCH FUNCTION (work in progress)
 
     // cout << "Cerca attore: ";
     // string attore;
