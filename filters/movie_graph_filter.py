@@ -9,6 +9,8 @@ import csv
 
 #-----------------DOWNLOAD .GZ FILES FROM IMDB DATABASE-----------------#
 
+# User gives as input the minimun number of votes that a movie needs to have on the IMDb database to be considered
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--votes", type=int, required=True)
 args = parser.parse_args()

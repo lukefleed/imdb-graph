@@ -7,7 +7,7 @@ import numpy as np
 import os
 import csv
 
-# MIN_MOVIES = 5  # Only keep relations for actors that have made more than this many movies
+# MIN_MOVIES = 5  # Deprecated, now user gives this value as input
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--min-movies", type=int, required=True)
