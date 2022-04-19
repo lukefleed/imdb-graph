@@ -37,6 +37,7 @@ for actor_id_1, actor_id_2 in edges:
 # net.repulsion(node_distance=500, central_gravity=0.3, spring_length=200, spring_strength=0.05, damping=0.2)
 # net.show_buttons()
 
+# I suggest to modify this parametres using the GUI
 net.set_options(""""
 var options = {
   "edges": {
