@@ -24,7 +24,7 @@ For the actors graph, we take the subset $S$ as the actors and actresses with at
 
 \end{figure}
 
-The result obtained is extremely interesting as shown in \ref{fig:imdb-a-network}. We can clearly see how this graph it's characterized by different (and some times isolated) communities. The nodes in them are all actors and actresses of the same nationality. There are some very big clusters as the \emph{Bollywood}'s one that are almost isolated. Due to cultural and linguistic differences those actors never collaborated with anyone outside their country. \s
+The result obtained is extremely interesting as shown in \ref{fig:imdb-a-network}. We can clearly see how this graph it's characterized by different (and some times isolated) communities. The nodes in them are all actors and actresses of the same nationality. There are some very big clusters as the \emph{Bollywood} one that are almost isolated. Due to cultural and linguistic differences those actors have never collaborated with anyone outside their country. \s
 
 A visual analysis of this graph can reflects some of the proprieties that we saw during the analysis of the results. Let's take the biggest cluster, the Bollywood one. Even if it's very dense and the nodes have a lot of links, none of them ever appeared in out top-k results during the testing. This happens due to the proprieties of closeness centrality, the one that we are taking into consideration. It can be seen as the ability of a node to transport information efficiently into the graph. But the Bollywood's nodes are efficient in transporting information only in their communities since they don't collaborate with nodes of other clusters. \s
 

@@ -18,14 +18,14 @@ where $r(v) = |R(v)|$ is the cardinality of the set of reachable nodes from $v$.
 With the convention that in a case of $\frac{0}{0}$ we set the closeness of $v$ to 0
 
 \subsection{The lower bound technique}
-During the computation of the farness, for each node, we have to compute the distance from that node and to all the other ones reachable from it. Since we are dealing with millions of nodes, it's not possibile in a reasonable time. In order to compute only the top-$k$ most central node we need to find a way to avoid computing BFS for nodes that won't be in the top-$k$ list. \s
+During the computation of the farness, for each node, we have to compute the distance from that node to all the other ones reachable from it. Since we are dealing with millions of nodes, it's not possibile in a reasonable time. In order to compute only the top-$k$ most central nodes we need to find a way to avoid computing BFS for nodes that won't be in the top-$k$ list. \s
 
 \noindent The idea is to keep track of a lower bound on the farness for each node that we will compute. If at some point the lower bound tell us that the node will not be in the top-$k$, this will allow us to kill the BFS operation before it reaches the end. More precisely:
 
 \begin{itemize}
     \item The algorithm will compute the farness of the first $k$ nodes, saving them in a vector \texttt{top}. From now on, this vector will be full.
 
-    \item Then, for all the next nodes, it defines a lower bound
+    \item Then, for all the following nodes, it defines a lower bound
     \begin{equation}\label{lower-bound}
         \frac{n-1}{(n-1)^2} (\sigma_{d-1} + n_d \cdot d)
     \end{equation}
@@ -34,8 +34,6 @@ During the computation of the farness, for each node, we have to compute the dis
 
     The \eqref{lower-bound} it's a worst case scenario, and that makes it perfect for a lower bound. If we are at the level $d$ of exploration, we have already computed the sum in \eqref{farness} up to the level $d-1$. Then we need to consider in our computation of the sum the current level of exploration: the worst case gives us that it's linked to all the nodes at distance $d$. We also put $r(v)=n$, in the case that our graph is strongly connected and all nodes are reachable form $v$.
 \end{itemize}
-
-\textsc{Scrivere pseudocodice}
 
 \begin{algorithm}
     \caption{The lower bound technique}\label{alg:lowerbound-technique}
@@ -59,7 +57,7 @@ During the computation of the farness, for each node, we have to compute the dis
         \If{\texttt{|Top|> k} \emph{and} \texttt{Top[k] $\leq$ lower-bound}}
             \State \texttt{Skip = True}; \Comment{Stop the BFS}
 
-        \Else 
+        \Else
             \State Compute the farness; \Comment{BFS reached the end}
             \State \texttt{Top.pop\textunderscore back}; \Comment{Remove the last element}
             \State Add the new node, in order of farness;
@@ -76,4 +74,4 @@ During the computation of the farness, for each node, we have to compute the dis
 
 
 
-\nd In Algorithm \ref*{alg:lowerbound-technique} we use a list \texttt{Top} containing the top analyzed (yet) nodes in increasing order of farness. Then we need a vector of booleans \texttt{enqueued} to see which nodes we put in the queue during the BFS. During the BFS we need a "FIFO" priority queue \texttt{Q}. All the technical details are left to the reader in the GitHub repository.
+\nd In Algorithm \ref*{alg:lowerbound-technique} we use a list \texttt{Top} containing the top analyzed (yet) nodes in increasing order of farness. Then we need a vector of booleans \texttt{enqueued} to see which nodes we put in the queue during the BFS. During the BFS we need a "FIFO" priority queue \texttt{Q}. All the technical details can be found in the GitHub repository.

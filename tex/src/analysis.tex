@@ -10,7 +10,7 @@ The first one will tell us how much more efficient the algorithm is in terms of 
 \nd The platform for the tests is \emph{a laptop}, so can not be considered precise due factors as thermal throttling. The CPU is an Intel(R) Core™ i7-8750H (6 cores, 12 threads), equipped with 16GB of DDR4 @2666 MHz RAM.
 
 \subsection{Actors graph} \label{actors-graph}
-Let's take into analysis the graph were each actors is a node and two nodes are linked the if they played in a movie together. In this case, during the filtering, we created the variable \texttt{MIN\textunderscore ACTORS}. This variable is the minimun number of movies that an actor/actress has to have done to be considered in the computation. \s
+Let's take into analysis the graph were each actor/actress is a node and two nodes are linked the if they played in a movie together. In this case, during the filtering, we created the variable \texttt{MIN\textunderscore ACTORS}. This variable is the minimum number of movies that an actor/actress needs to have done to be considered in the computation. \s
 
 \nd Varying this variable obviously affects the algorithm, in different ways. The higher this variable is, the less actors we are taking into consideration. So, with a smaller graph, we are expecting better results in terms of time execution. On the other hand, we also can expect to have less accurate results. What we are going to discuss is how much changing \texttt{MIN\textunderscore ACTORS} affects this two factors.
 
@@ -80,7 +80,7 @@ As seen during the analysis of the actors graph in \ref{actors-graph}, varying t
 
 \subsubsection{Time of execution}
 
-As seen in \ref{time-actors} we are going to analyze the performance of the algorithm in function of different values of \texttt{VOTES}. Low values of this variable will lead to and exponential growth of the cardinality of the nodes and edges set cardinality. And as we know, with a bigger graph there are more operations to do. The results are shown in figure \ref{fig:moves_time}
+As seen in \ref{time-actors} we are going to analyze the performance of the algorithm in function of different values of \texttt{VOTES}. Low values of this variable will lead to and exponential growth of the cardinality of the nodes and edges sets cardinalities. And as we know, with a bigger graph there are more operations to do. The results are shown in figure \ref{fig:moves_time}
 
 \begin{figure}[h!]
     \centering
@@ -94,12 +94,12 @@ As seen in \ref{time-actors} we are going to analyze the performance of the algo
 
 \subsubsection{Discrepancy of the results}
 
-All the observations made before are still valid for this case, I won't repeat them for shortness. As done before (\ref{fig:matrix-a}), we are going to use a matrix to visualize and analyze the results.
+All the observations made before are still valid for this case. As done before (\ref{fig:matrix-a}), we are going to use a matrix to visualize and analyze the results.
 \s
 
 % \lstinputlisting[language=c++]{code/closeness_analysis_2.py}
 
-\nd Giving us the matrix in figure \ref{fig:matrix-b}:
+\nd The analysis gives us figure \ref{fig:matrix-b}:
 \begin{figure}[H]
     \centering
     \includegraphics[width=13cm]{Figure_2.png}
