@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
+# %%
 dfs = {
     i: pd.read_csv(f"top_actors_{i:02d}_c.txt", sep='\t', usecols=[1], names=["actor"])
     for i in [5] + list(range(10, 71, 10))}
@@ -27,3 +27,5 @@ plt.xlabel("\nMIN_ACTORS value")
 cb = plt.colorbar()
 cb.set_label("\npercentace of difference in results varing MIN_MOVIES")
 plt.show()
+
+# %% 3 + 3
